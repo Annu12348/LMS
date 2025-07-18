@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import Navigation from "../components/Navigation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [users, setUsers] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    console.log(users);
+
+    setUsers({
+      email: "",
+      password: "",
+    });
+
+    const postlogin = () => {
+      axios
+        .post("http://localhost:3000/auth/login", users, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          navigate("/");
+        })
+        .catch((error) => {
+          alert("Registration failed. Please try again.");
+        });
+    };
+
+    postlogin();
+  };
   return (
     <div className="w-full min-h-[91.4vh] bg-[#F3F4F6]">
       <Navigation />
@@ -14,7 +45,7 @@ const Login = () => {
           </h1>
           <p className="mt-5 text-md">Please login to your account.</p>
           <div className="w-full mt-8">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="flex flex-col mt-2 ">
                 <label className="text-md font-semibold capitalize ">
                   email addresh
@@ -22,8 +53,12 @@ const Login = () => {
                 <input
                   className="border outline-none px-2 py-2 text-zinc-500 border-zinc-300 rounded  "
                   type="email"
-                  required
-                  placeholder="enter email"
+                  placeholder="Enter Email"
+                  name="email"
+                  value={users.email}
+                  onChange={(ev) =>
+                    setUsers({ ...users, email: ev.target.value })
+                  }
                 />
               </div>
               <div className="flex flex-col mt-2 ">
@@ -33,19 +68,20 @@ const Login = () => {
                 <input
                   className="border outline-none px-2 py-2 text-zinc-500 border-zinc-300 rounded  "
                   type="password"
-                  required
-                  placeholder="enter password"
+                  name="password"
+                  value={users.password}
+                  onChange={(ev) =>
+                    setUsers({ ...users, password: ev.target.value })
+                  }
+                  placeholder="Enter Password"
                 />
               </div>
-            
+
               <input
                 className="w-full bg-blue-500 flex items-center justify-center font-semibold capitalize text-xl py-2 rounded text-[#d1d5db] mt-4"
                 type="submit"
                 value="Login"
               />
-            
-                
-               
             </form>
             <div className="w-[100%] h-[4vh]  mt-5 flex items-center justify-between ">
               <div className="w-[46%] bg-zinc-400 h-[1px] "></div>

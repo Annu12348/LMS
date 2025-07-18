@@ -35,6 +35,8 @@ export const registerUser = async (req, res) => {
         fullname: user.fullname,
         email: user.email,
         role: user.role,
+        imageUrl: user.imageUrl,
+        enrolledCourses: user.enrolledCourses,
       },
     });
   } catch (error) {
@@ -46,46 +48,60 @@ export const registerUser = async (req, res) => {
 };
 
 export const LoginUser = async (req, res) => {
-    try{
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await findOneUser({
-    email
-  })
-
-  if (!user) {
-    return res.status(400).json({
-      message: "Invalid email or password"
+    const user = await findOneUser({
+      email,
     });
-  }
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) {
-    return res.status(400).json({
-        message: "Invalid email or password"
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid email or password",
       });
-  }
+    }
 
-  const token = jwt.sign({ id: user._id }, config.JWT_SCRETE_KEY)
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-  res.cookie("token", token)
+    if (!isPasswordValid) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
 
-  res.status(200).json({
-    message: "User login successful",
-    token,
-    user: {
+    const token = jwt.sign({ id: user._id }, config.JWT_SCRETE_KEY);
+
+    res.cookie("token", token);
+
+    res.status(200).json({
+      message: "User login successful",
+      token,
+      user: {
         id: user._id,
         fullname: user.fullname,
         email: user.email,
-        password: user.password,
         role: user.role,
-    },
-  });
-} catch (error) {
+        imageUrl: user.imageUrl,
+        enrolledCourses: user.enrolledCourses,
+      },
+    });
+  } catch (error) {
     console.error(error);
     res.status(500).json({
-        message: "Internal server error. Please try again later.",
+      message: "Internal server error. Please try again later.",
     });
-}
+  }
+};
+
+export const logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("token");
+
+    res.status(200).json({
+      message: "logout user",
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+    res.status(500).json({ message: "Logout failed. Try again." });
+  }
 };
