@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaGraduationCap } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+//import store from "../redux/store";
 
 const Navigation = () => {
-  const [val, setVal] = useState(false);
 
-  const handleCliked = () => {
-    setVal(!val);
-  };
-
+  const { user } = useSelector(store => store.auth)
+  //const user  =  false;
+  
   return (
-    <div className="bg-[#111827] fixed top-0 w-full py-3 px-6 flex items-center justify-between ">
+    <div  className="bg-[#111827] fixed top-0 w-full py-3 px-6 flex items-center justify-between ">
       <Link to="/" className="flex items-center gap-3">
         <span className="text-4xl text-[#D1D5DB] ">
           <FaGraduationCap />
@@ -25,7 +25,7 @@ const Navigation = () => {
           Course
         </Link>
         <div className="flex items-center gap-5">
-          {!val ? (
+          {!user ? (
             <>
               {" "}
               <Link to='/login' className="text-[#D1D5DB] bg-blue-500 px-5 py-1.5 rounded font-semibold capitalize">

@@ -3,9 +3,12 @@ import Navigation from "../components/Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [users, setUsers] = useState({
     email: "",
     password: "",
@@ -14,7 +17,6 @@ const Login = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     console.log(users);
-
     setUsers({
       email: "",
       password: "",
@@ -27,6 +29,7 @@ const Login = () => {
         })
         .then((response) => {
           navigate("/");
+          dispatch(setUser(response.data.user))
         })
         .catch((error) => {
           alert("Registration failed. Please try again.");
