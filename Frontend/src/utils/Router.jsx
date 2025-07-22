@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Courses from "../pages/Courses";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import Profile from "../pages/Profile";
 
 const Router = () => {
   
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </>
   );

@@ -3,10 +3,13 @@ import Navigation from "../components/Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import axios from "axios"
+import { useDispatch } from "react-redux";
+import { setUser } from "../reduxtoolkit/reducer/createSlice";
 
 const Register = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState({
+  const dispatch = useDispatch()
+  const [input, setInput] = useState({
     fullname: "",
     email: "",
     password: "",
@@ -14,8 +17,8 @@ const Register = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
-    setUser({
+    console.log(input);
+    setInput({
       fullname: "",
       email: "",
       password: "",
@@ -24,11 +27,12 @@ const Register = () => {
 
 
     const postRegister = () => {
-      axios.post("http://localhost:3000/auth/register", user, {
+      axios.post("http://localhost:3000/auth/register", input, {
         withCredentials: true,
       })
         .then((response) => {
           navigate("/")
+          dispatch(setUser(response.data.user))
         })
         .catch((error) => {
           alert("Registration failed. Please try again.");
@@ -58,9 +62,9 @@ const Register = () => {
                   className="border outline-none px-2 py-2 text-zinc-500 border-zinc-300 rounded  "
                   type="text"
                   name="fullname"
-                  value={user.fullname}
+                  value={input.fullname}
                   onChange={(e) =>
-                    setUser({ ...user, fullname: e.target.value })
+                    setInput({ ...input, fullname: e.target.value })
                   }
                   placeholder="Enter Your Fullname"
                   required
@@ -76,8 +80,8 @@ const Register = () => {
                   placeholder="Enter Email"
                   required
                   name="email"
-                  value={user.email}
-                  onChange={(e) => setUser({ ...user, email: e.target.value })}
+                  value={input.email}
+                  onChange={(e) => setInput({ ...input, email: e.target.value })}
                 />
               </div>
               <div className="flex flex-col mt-2 ">
@@ -90,9 +94,9 @@ const Register = () => {
                   placeholder="Enter Password"
                   required
                   name="password"
-                  value={user.password}
+                  value={input.password}
                   onChange={(e) =>
-                    setUser({ ...user, password: e.target.value })
+                    setInput({ ...input, password: e.target.value })
                   }
                 />
               </div>
@@ -103,8 +107,8 @@ const Register = () => {
                     type="radio"
                     name="role"
                     value="Student"
-                    checked={user.role === "Student"}
-                    onChange={(e) => setUser({ ...user, role: e.target.value })}
+                    checked={input.role === "Student"}
+                    onChange={(e) => setInput({ ...input, role: e.target.value })}
                   />
                   Student
                 </label>
@@ -114,8 +118,8 @@ const Register = () => {
                     type="radio"
                     name="role"
                     value="Instructor"
-                    checked={user.role === "Instructor"}
-                    onChange={(e) => setUser({ ...user, role: e.target.value })}
+                    checked={input.role === "Instructor"}
+                    onChange={(e) => setInput({ ...input, role: e.target.value })}
                   />
                   Instructor
                 </label>
