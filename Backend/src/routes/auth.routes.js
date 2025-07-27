@@ -1,9 +1,14 @@
 import express from "express"
 const router = express.Router(); 
-import { LoginUser, logoutUser, registerUser } from "../controller/auth.controller.js";
+import { LoginUser, logoutUser, registerUser, updateUser } from "../controller/auth.controller.js";
+import multer from "multer";
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.post("/register", registerUser);
 router.post("/login", LoginUser);
-router.get("/logout", logoutUser)
+router.get("/logout", logoutUser);
+router.put("/update/:id", updateUser)
 
 export default router;

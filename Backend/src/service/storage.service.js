@@ -1,19 +1,19 @@
 import imagekit from "imagekit";
-import dotenv from "dotenv"
-
-dotenv.config()
+import config from "../config/config.js";
+import path from "path";
 
 const Imagekit = new imagekit({
-    publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
-    privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
+    publicKey: config.IMAGEKIT_PUBLIC_KEY,
+    privateKey: config.IMAGEKIT_PRIVATE_KEY,
+    urlEndpoint: config.IMAGEKIT_URL_ENDPOINT
 })
 
-export const uploadFile = (file) => {
+export const uploadFile = (file, originalName) => {
+    const ext = path.extname(originalName)
     return new Promise((resolve, reject) => {
         Imagekit.upload({
             file: file,
-            fileName: "image-file" + Date.now() + ".png",
+            fileName: "image-file" + Date.now() + ext,
             folder: "/images"
         }, (error, result) => {
             if(error){

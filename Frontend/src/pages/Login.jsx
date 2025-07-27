@@ -41,8 +41,8 @@ const Login = () => {
   return (
     <div className="w-full min-h-[91.4vh] bg-[#F3F4F6]">
       <Navigation />
-      <div className="w-full mt-[8.6vh]  h-[91.4vh] flex items-center justify-center   px-6  ">
-        <div className="bg-white px-5 py-2 rounded-lg w-[30%] shadow flex items-center justify-center flex-col">
+      <div className="w-full md:mt-[8.6vh] mt-[5vh]  h-[86vh]  md:h-[91.4vh] flex items-center justify-center px-2  md:px-6  ">
+        <div className="bg-white px-5 py-2 rounded-lg w-full md:w-[30%] shadow flex items-center justify-center flex-col">
           <h1 className="text-xl mt-3 font-semibold tracking-tight leading-none ">
             Welcome Back
           </h1>

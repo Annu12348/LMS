@@ -4,6 +4,7 @@ import { FaGraduationCap } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../reduxtoolkit/reducer/createSlice";
+import { FiMenu } from "react-icons/fi";
 
 const Navigation = () => {
 
@@ -26,14 +27,14 @@ const Navigation = () => {
   }
   
   return (
-    <div  className="bg-[#111827] fixed top-0 w-full py-3 px-6 flex items-center justify-between ">
-      <Link to="/" className="flex items-center gap-3">
-        <span className="text-4xl text-[#D1D5DB] ">
+    <div  className="bg-[#111827] fixed top-0 w-full py-3 md:px-6 px-3 flex items-center justify-between ">
+      <Link to="/" className="flex items-center gap-2 md:gap-3">
+        <span className="md:text-4xl text-3xl text-[#D1D5DB] ">
           <FaGraduationCap />
         </span>
-        <h1 className="text-[#d1d5db] text-xl font-semibold ">Sheriyans</h1>
+        <h1 className="bg-gradient-to-t from-red-900 to-blue-500 bg-clip-text text-transparent md:text-2xl   font-semibold ">Sheriyans</h1>
       </Link>
-      <div className="flex items-center gap-5">
+      <div className="md:flex items-center gap-5 hidden">
         <Link to="/" className="text-[#D1D5DB] capitalize text-md">
           Home
         </Link>
@@ -69,6 +70,7 @@ const Navigation = () => {
           )}
         </div>
       </div>
+      <FiMenu className="text-white mr-5 md:hidden block" />
     </div>
   );
 };
