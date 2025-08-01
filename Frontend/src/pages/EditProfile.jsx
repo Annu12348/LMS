@@ -1,14 +1,65 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setUser } from "../reduxtoolkit/reducer/createSlice";
 
 const EditProfile = () => {
   const { user } = useSelector((store) => store.authentication);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [input, setInput] = useState({
-    name: user.fullname,
-    description: user.description,
+    name: user.fullname || "",
+    email: user.email || "",
+    description: user.description || "",
+    file: null,
   });
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    if (name === "imageUrl") {
+      setInput((prev) => ({ ...prev, file: files[0] }));
+    } else {
+      setInput((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+
+    const formData = new FormData();
+    formData.append("fullname", input.name);
+    formData.append("email", input.email);
+    formData.append("description", input.description);
+    if (input.file) {
+      formData.append("imageUrl", input.file);
+    }
+
+    const getUpdated = async () => {
+      try {
+        const response = await axios.put(
+          `http://localhost:3000/auth/update/${user.id}`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        );
+
+        const responseData = response.data.user;
+        dispatch(setUser(responseData));
+        navigate(-1);
+      } catch (error) {
+        console.error(error);
+        alert("repeatation");
+      }
+    };
+
+    getUpdated();
+  };
+
   return (
     <div className="w-full h-screen flex items-center  justify-center fixed top-0 left-0  ">
       <div className="w-[60vh] relative flex-col bg-white rounded-lg h-[50vh] shadow p-6 flex items-center justify-cente ">
@@ -24,44 +75,70 @@ const EditProfile = () => {
         <p className="mt-1 text-sm font-semibold">
           Make changes to your profile here.
         </p>
-        <div className="w-full flex gap-3 items-center mt-9 ml-16.5">
-          <label className="text-md capitalize font-semibold tracking-tight">
-            name
-          </label>
-          <input
-            className="border-1 capitalize border-zinc-300 outline-none px-2  rounded py-1.5 w-[76%] "
-            type="text"
-            placeholder="name"
-            name="name"
-            value={input.name}
-          />
-        </div>
-        <div className="w-full flex gap-3 items-center mt-5 ">
-          <label className="text-md capitalize font-semibold tracking-tight">
-            description
-          </label>
-          <input
-            className="border-1 px-2 rounded border-zinc-300 outline-none py-1.5 w-full"
-            type="text"
-            placeholder=""
-            name="description"
-            value={input.description}
-          />
-        </div>
-        <div className="w-full flex gap-3 items-center mt-5 ml-14">
-          <label className="text-md capitalize font-semibold tracking-tight">
-            picture
-          </label>
-          <input
-            className="border-1 border-zinc-300 outline-none px-2 rounded py-1.5 w-[77%]"
-            type="file"
-          />
-        </div>
-        <Link to='/profile'>
-        <button className=" py-2 px-5 mt-6 ml-70 rounded cursor-pointer capitalize font-semibold text-white bg-emerald-500">
-          update
-        </button>
-        </Link>
+
+        <form onSubmit={handleSubmit}>
+          <div className="w-full flex gap-3 items-center mt-6 ml-9.5">
+            <label className="text-md capitalize font-semibold tracking-tight">
+              name
+            </label>
+            <input
+              className="border-1 capitalize border-zinc-300 outline-none px-2  rounded py-1.5 w-[76%] "
+              type="text"
+              placeholder="name"
+              name="name"
+              value={input.name}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="w-full flex gap-3 items-center mt-2 ml-10.5">
+            <label className="text-md capitalize font-semibold tracking-tight">
+              email
+            </label>
+            <input
+              className="border-1 border-zinc-300 outline-none px-2  rounded py-1.5 w-[76%] "
+              type="email"
+              placeholder="email"
+              name="email"
+              value={input.email}
+              onChange={handleChange}
+            />
+          </div>
+
+
+          <div className="w-full flex gap-3 items-center mt-2 ">
+            <label className="text-md capitalize font-semibold tracking-tight">
+              description
+            </label>
+            <input
+              className="border-1 px-2 rounded border-zinc-300 outline-none py-1.5 w-full"
+              type="text"
+              placeholder=""
+              name="description"
+              value={input.description}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="w-full flex gap-3 items-center mt-2 ml-7">
+            <label className="text-md capitalize font-semibold tracking-tight">
+              picture
+            </label>
+            <input
+              className="border-1 border-zinc-300 outline-none px-2 rounded py-1.5 w-[77%]"
+              type="file"
+              name="imageUrl"
+              accept="image/*"
+              onChange={handleChange}
+            />
+          </div>
+
+          <button
+            className=" py-2 px-5 mt-6 ml-70 rounded cursor-pointer capitalize font-semibold text-white bg-emerald-500"
+            type="submit"
+          >
+            update
+          </button>
+        </form>
       </div>
     </div>
   );

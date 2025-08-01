@@ -32,7 +32,7 @@ const Profile = () => {
       <Navigation />
       <div className="w-full min-h-[90.8vh] py-10 md:px-50 mt-10 px-2  md:mt-16 ">
         <div className="p-6 rounded-lg bg-zinc-100 shadow md:flex gap-7 items-center  ">
-          <div className="w-[23vh] rounded-full h-[23vh] border-2 border-blue-500  overflow-hidden md:ml-0 ml-19 ">
+          <div className="w-[20vh] rounded-full  h-[20vh] border-2 border-blue-500  overflow-hidden md:ml-0 ml-19 ">
             <img
               className="object-cover w-full h-full"
               src={

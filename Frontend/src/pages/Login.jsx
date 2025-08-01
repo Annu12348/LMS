@@ -17,10 +17,6 @@ const Login = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     console.log(users);
-    setUsers({
-      email: "",
-      password: "",
-    });
 
     const postlogin = () => {
       axios
@@ -29,6 +25,7 @@ const Login = () => {
         })
         .then((response) => {
           navigate("/");
+          console.log(response.data)
           dispatch(setUser(response.data.user))
         })
         .catch((error) => {

@@ -7,32 +7,34 @@ import { setUser } from "../reduxtoolkit/reducer/createSlice";
 import { FiMenu } from "react-icons/fi";
 
 const Navigation = () => {
-
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const { user } = useSelector(store => store.authentication)
-  
+  const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.authentication);
+
   const logoutHandle = async (e) => {
-    try{
-      await axios.get("http://localhost:3000/auth/logout", {
-        withCredentials: true
-      })
-      .then(responsive => {
-        navigate("/")
-        dispatch(setUser(null))
-      })
-    }catch(error){
-      alert("logout")
+    try {
+      await axios
+        .get("http://localhost:3000/auth/logout", {
+          withCredentials: true,
+        })
+        .then((responsive) => {
+          navigate("/");
+          dispatch(setUser(null));
+        });
+    } catch (error) {
+      alert("logout");
     }
-  }
-  
+  };
+
   return (
-    <div  className="bg-[#111827] fixed top-0 w-full py-3 md:px-6 px-3 flex items-center justify-between ">
+    <div className="bg-[#111827] fixed top-0 w-full py-3 md:px-6 px-3 flex items-center justify-between ">
       <Link to="/" className="flex items-center gap-2 md:gap-3">
         <span className="md:text-4xl text-3xl text-[#D1D5DB] ">
           <FaGraduationCap />
         </span>
-        <h1 className="bg-gradient-to-t from-red-900 to-blue-500 bg-clip-text text-transparent md:text-2xl   font-semibold ">Sheriyans</h1>
+        <h1 className="bg-gradient-to-t from-red-900 to-blue-500 bg-clip-text text-transparent md:text-2xl   font-semibold ">
+          Sheriyans
+        </h1>
       </Link>
       <div className="md:flex items-center gap-5 hidden">
         <Link to="/" className="text-[#D1D5DB] capitalize text-md">
@@ -41,11 +43,14 @@ const Navigation = () => {
         <Link to="/courses" className="text-[#d1d5db] capitalize text-md">
           Course
         </Link>
-        <div  className="flex items-center gap-5">
+        <div className="flex items-center gap-5">
           {!user ? (
             <>
               {" "}
-              <Link to='/login' className="text-[#D1D5DB] bg-blue-500 px-5 py-1.5 rounded font-semibold capitalize">
+              <Link
+                to="/login"
+                className="text-[#D1D5DB] bg-blue-500 px-5 py-1.5 rounded font-semibold capitalize"
+              >
                 login
               </Link>
               <Link
@@ -57,13 +62,27 @@ const Navigation = () => {
             </>
           ) : (
             <>
-              <Link to="/profile" >
-              <img
-                className="w-10 rounded-full object-cover"
-                src="data:image/jpeg;base64,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"
-              />
+              {user.role === "Instructor" && (
+                <Link
+                  to="/admin/dashboard"
+                  className=" text-[#D1D5DB] font-semibold"
+                >
+                  Admin
+                </Link>
+              )}
+              <Link to="/profile">
+                <img
+                  className="w-12 h-12 rounded-full object-cover"
+                  src={
+                    user.imageUrl ||
+                    `data:image/jpeg;base64,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`
+                  }
+                />
               </Link>
-              <button onClick={logoutHandle} className="text-[#D1D5DB] bg-red-900 px-5 py-1.5 rounded font-semibold capitalize">
+              <button
+                onClick={logoutHandle}
+                className="text-[#D1D5DB] cursor-pointer bg-red-900 px-5 py-1.5 rounded font-semibold capitalize"
+              >
                 logout
               </button>
             </>

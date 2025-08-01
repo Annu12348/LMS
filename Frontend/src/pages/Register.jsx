@@ -32,6 +32,7 @@ const Register = () => {
       })
         .then((response) => {
           navigate("/")
+          console.log(response.data)
           dispatch(setUser(response.data.user))
         })
         .catch((error) => {

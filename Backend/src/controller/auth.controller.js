@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 import userModel from "../model/user.model.js";
+import { uploadFile } from "../service/storage.service.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -37,6 +38,7 @@ export const registerUser = async (req, res) => {
         email: user.email,
         role: user.role,
         imageUrl: user.imageUrl,
+        description: user.description,
         enrolledCourses: user.enrolledCourses,
       },
     });
@@ -83,6 +85,7 @@ export const LoginUser = async (req, res) => {
         email: user.email,
         role: user.role,
         imageUrl: user.imageUrl,
+        description: user.description,
         enrolledCourses: user.enrolledCourses,
       },
     });
@@ -110,13 +113,34 @@ export const logoutUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log(userId);
+    const file = req.file;
 
-    const { fullname } = req.body;
+    if (!file) {
+      return res.status(400).json({
+        message: "No file Uploaded",
+      });
+    }
 
-    const update = await userModel.findOneAndUpdate({ _id: userId }, {$set: { fullname }}, { new: true });
+  
+    const imagefile = await uploadFile(req.file.buffer, req.file.originalname);
+    const imageURL = imagefile.url;
 
-    if (!update) {
+    const { fullname, description, email } = req.body;
+
+    const user = await userModel.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: {
+          fullname,
+          description,
+          email,
+          imageUrl: imageURL
+        },
+      },
+      { new: true }
+    );
+
+    if (!user) {
       return res.status(404).json({
         message: "User not found",
       });
@@ -124,7 +148,15 @@ export const updateUser = async (req, res) => {
 
     res.status(200).json({
       message: "User updated successfully",
-      update
+      user: {
+        id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        role: user.role,
+        imageUrl: user.imageUrl,
+        description: user.description,
+        enrolledCourses: user.enrolledCourses,
+      },
     });
   } catch (error) {
     console.error("updateUser error:", error);

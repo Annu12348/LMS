@@ -14,7 +14,7 @@ export const uploadFile = (file, originalName) => {
         Imagekit.upload({
             file: file,
             fileName: "image-file" + Date.now() + ext,
-            folder: "/images"
+            folder: "/image"
         }, (error, result) => {
             if(error){
                 reject(error)
