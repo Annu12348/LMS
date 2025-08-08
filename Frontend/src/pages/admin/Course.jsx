@@ -4,39 +4,44 @@ import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import { AiFillAccountBook } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Course = () => {
-  document.title = "LMS | Admin-Dashboard";
+  document.title = "LMS | Admin-Course";
   const { user } = useSelector((store) => store.authentication);
 
   const data = [
     {
-      imageUrl: "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png",
+      imageUrl:
+        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png",
       context: "error debugging fixed",
-      price: "599"
+      price: "599",
     },
     {
-      imageUrl: "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png",
-      context: "error debugging fixed",
-      price: "499"
+      imageUrl:
+        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736342831/g0tsjh20grikv3elufwz.jpg",
+      context: "HTML Full Course For Beginners",
+      price: "499",
     },
     {
-      imageUrl: "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png",
-      context: "error debugging fixed",
-      price: "399"
+      imageUrl:
+        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736407191/l1gq2ktijx27krd5gwsg.jpg",
+      context: "node js tutorial",
+      price: "399",
     },
     {
-      imageUrl: "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png",
-      context: "error debugging fixed",
-      price: "299"
+      imageUrl:
+        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736408421/vdb6ubcbyzfw2ptaimiu.png",
+      context: "express js tutorial",
+      price: "299",
     },
     {
-      imageUrl: "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png",
-      context: "error debugging fixed",
-      price: "199"
+      imageUrl:
+        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736524513/rmwrv6xafqtedylq6sbk.jpg",
+      context: "ms excel js tutorial",
+      price: "199",
     },
-    
-  ]
+  ];
 
   return (
     <>
@@ -44,9 +49,9 @@ const Course = () => {
         <Navigation />
         <SizeNavigation />
         <div className="w-[81%] min-h-[90vh]  mt-16 p-5  ">
-          <button className="mt-4 px-6 py-3 bg-yellow-600 rounded shadow capitalize tracking-tight font-semibold text-white">
+          <Link to='/admin/course/create' className="mt-4 block w-fit px-6 py-3 bg-yellow-600 rounded shadow capitalize tracking-tight font-semibold text-white">
             create course
-          </button>
+          </Link>
           <div className="w-full capitalize text-zinc-400 mt-12 ">
             <div className="py-2 px-3 rounded w-full flex items-center hover:bg-zinc-100 justify-between">
               <h1 className="w-[25%] ">course</h1>
@@ -55,31 +60,30 @@ const Course = () => {
               <h1 className="w-[25%] text-right ">action</h1>
             </div>
 
-
-
-
-            {data.map((d, i)=> (
-
+            {data.map((d, i) => (
               <div className="py-1 capitalize px-3 mt-2 rounded w-full flex items-center hover:bg-zinc-100  justify-between">
-              <div className="w-[25%]  flex items-center gap-4 ">
-                <img
-                  className="object-cover w-[15vh] h-[9vh] rounded "
-                  src="https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png"
-                />
-                <p className="text-black">error debugging fixed</p>
+                <div className="w-[25%]  flex items-center gap-4 ">
+                  <img
+                    className="object-center w-[15vh] h-[9vh] rounded "
+                    src={d.imageUrl}
+                  />
+                  <p className="text-black">{d.context}</p>
+                </div>
+                <h1 className="w-[25%] text-center text-black ">{d.price}</h1>
+                <h1 className="w-[25%] text-center   ">
+                  <span className="bg-green-600 px-7 py-2 rounded text-white font-semibold shadow">
+                    published
+                  </span>
+                </h1>
+                <h1 className="w-[25%] text-right flex items-center justify-end pr-3 text-2xl text-black ">
+                  <span>
+                    <AiFillAccountBook />
+                  </span>
+                </h1>
               </div>
-              <h1 className="w-[25%] text-center text-black ">{d.price}</h1>
-              <h1 className="w-[25%] text-center ">ststus</h1>
-              <h1 className="w-[25%] text-right flex items-center justify-end pr-3 text-2xl text-black "><span><AiFillAccountBook /></span></h1>
-            </div>
             ))}
-            
-
-
 
             <h1 className="text-center mt-4">A list of your recent courses.</h1>
-
-            
           </div>
         </div>
       </div>
