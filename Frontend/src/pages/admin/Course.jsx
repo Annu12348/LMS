@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SizeNavigation from "./SizeNavigation";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillAccountBook } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Course = () => {
   document.title = "LMS | Admin-Course";
-  const { user } = useSelector((store) => store.authentication);
+  const dispatch = useDispatch()
+
+  const getreadapi = async () => {
+    try{
+      const res = await axios.get("http://localhost:3000/course/publishs/", {
+        withCredentials: true
+      })
+      dispatch()
+    }catch(error){
+      alert("not fetch data")
+    }
+  }
+  
+  useEffect(()=> {
+    getreadapi()
+  }, [])
 
   const data = [
     {
@@ -49,7 +65,10 @@ const Course = () => {
         <Navigation />
         <SizeNavigation />
         <div className="w-[81%] min-h-[90vh]  mt-16 p-5  ">
-          <Link to='/admin/course/create' className="mt-4 block w-fit px-6 py-3 bg-yellow-600 rounded shadow capitalize tracking-tight font-semibold text-white">
+          <Link
+            to="/admin/course/create"
+            className="mt-4 block w-fit px-6 py-3 bg-yellow-600 rounded shadow capitalize tracking-tight font-semibold text-white"
+          >
             create course
           </Link>
           <div className="w-full capitalize text-zinc-400 mt-12 ">
@@ -61,7 +80,10 @@ const Course = () => {
             </div>
 
             {data.map((d, i) => (
-              <div className="py-1 capitalize px-3 mt-2 rounded w-full flex items-center hover:bg-zinc-100  justify-between">
+              <div
+                key={i}
+                className="py-1 capitalize px-3 mt-2 rounded w-full flex items-center hover:bg-zinc-100  justify-between"
+              >
                 <div className="w-[25%]  flex items-center gap-4 ">
                   <img
                     className="object-center w-[15vh] h-[9vh] rounded "

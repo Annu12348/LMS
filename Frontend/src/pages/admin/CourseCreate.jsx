@@ -1,51 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SizeNavigation from "./SizeNavigation";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CourseCreate = () => {
   document.title = "LMS | Admin-Course | Create";
   const navigate = useNavigate();
-  const [courseTitle, setCourseTitle] = useState("");
+  const [ loading, setLoading ] = useState(false)
   const [category, setCategory] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [subTitle, setSubTitle] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
 
-  console.log(category);
-  console.log(courseTitle);
-
-  const onvaluechangehandler = (val) => {
-    setCategory(val.target.value)
-  }
-
-  const postapi = async () => {
+  const coursecreate = async () => {
     try {
       const response = await axios.post(
         "http://localhost:3000/course/courses",
-        { courseTitle, category },
-        {
-          withCredentials: true,
-        }
+        { category, subTitle, courseTitle },
+        { withCredentials: true }
       );
-      console.log(response);
+      navigate(-1)
+      
     } catch (error) {
-      console.error(error);
+      alert("Course not created");
     }
   };
 
-  useEffect(() => {
-    postapi();
-  }, []);
-
+  const createButtonHandleClicked = () => {
+    coursecreate()
+    setCategory("");
+    setCourseTitle("");
+    setSubTitle("");
+  };
   return (
     <>
-      <div className="w-full min-h-screen  flex  ">
+      <div className="w-full min-h-screen flex">
         <Navigation />
         <SizeNavigation />
-        <div className="w-[81%] min-h-[90vh]   mt-16 p-9  ">
-          <h1 className="text-2xl capitalize font-semibold ">
-            let add, <span className="text-blue-500">courses</span>
+        <div className="w-[81%] min-h-[90vh] mt-16 p-9">
+          <h1 className="text-2xl capitalize font-semibold">
+            let's add, <span className="text-blue-500">courses</span>
           </h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eius
@@ -53,16 +48,30 @@ const CourseCreate = () => {
             eaque?
           </p>
           <div className="mt-10 flex w-full flex-col">
-            <label className="text-md capitalize font-semibold">title</label>
+            <label className="text-md capitalize font-semibold">
+              course title
+            </label>
             <input
               className="w-full mt-1.5 border-1 border-zinc-300 px-3 capitalize font-semibold py-2 outline-none text-zinc-400 rounded"
               type="text"
-              placeholder="your course name"
+              placeholder="your course title"
+              required
               value={courseTitle}
               onChange={(e) => setCourseTitle(e.target.value)}
             />
           </div>
-          <div className="mt-4 w-full flex flex-col">
+          <div className="mt-4 flex w-full flex-col">
+            <label className="text-md capitalize font-semibold">Subtitle</label>
+            <input
+              className="w-full mt-1.5 border-1 border-zinc-300 px-3 capitalize font-semibold py-2 outline-none text-zinc-400 rounded"
+              type="text"
+              placeholder="your subtitle"
+              required
+              value={subTitle}
+              onChange={(e) => setSubTitle(e.target.value)}
+            />
+          </div>
+          <div className="mt-3 w-full flex flex-col">
             <label
               htmlFor="category"
               className="capitalize text-md font-semibold"
@@ -73,7 +82,7 @@ const CourseCreate = () => {
               id="category"
               className="border-1 border-zinc-300 text-zinc-600 px-3 py-2 rounded mt-1.5 outline-none"
               value={category}
-              onChange={onvaluechangehandler}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <option value="">Select category</option>
               <option value="Node Js">Node Js</option>
@@ -88,12 +97,18 @@ const CourseCreate = () => {
             </select>
           </div>
           <button
+            className="mt-7 w-30 px-5 py-2 cursor-pointer bg-white text-md font-semibold rounded mr-5"
+            type="button"
             onClick={() => navigate(-1)}
-            className="mt-7 px-5 py-2 bg-white text-md font-semibold rounded mr-5"
           >
             Cancel
           </button>
-          <button disabled={loading} onClick={postapi} className="px-5 py-2 bg-green-500 text-white font-semibold rounded">
+          <button
+            className="px-5 w-30 py-2 cursor-pointer bg-green-500  text-white font-semibold rounded"
+            type="button"
+            onClick={createButtonHandleClicked}
+            disabled={loading}
+          >
             Create
           </button>
         </div>
