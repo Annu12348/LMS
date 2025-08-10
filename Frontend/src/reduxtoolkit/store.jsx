@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./reducer/createSlice";
+import CourseSlice from "./reducer/CourseSlice"
 import storage from "redux-persist/lib/storage";
 import {
   persistReducer,
@@ -12,18 +13,17 @@ import {
 } from "redux-persist";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   version: 1,
   storage,
-}
+};
 
 const rootReducer = combineReducers({
-  
-    authentication: counterSlice,
-
+  authentication: counterSlice,
+  course: CourseSlice
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -33,7 +33,6 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-})
-
+});
 
 export default store;
