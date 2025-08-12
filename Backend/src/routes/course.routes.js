@@ -1,10 +1,20 @@
 import express from "express";
-import { createcourse, getpublishedcourses, getpublishedcoursesId } from "../controller/course.controller.js";
+import multer from "multer"
+import {
+  createcourse,
+  getpublishedcourses,
+  getpublishedcoursesId,
+  getupdatecourse,
+} from "../controller/course.controller.js";
 import { authenticationMiddleware } from "../middleware/authentication.middleware.js";
 const router = express.Router();
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 router.post("/courses", authenticationMiddleware, createcourse);
-router.get("/publish", authenticationMiddleware, getpublishedcourses)
-router.get("/publishs/", authenticationMiddleware, getpublishedcoursesId)
+router.get("/publish", authenticationMiddleware, getpublishedcourses);
+router.get("/fetchs", authenticationMiddleware, getpublishedcoursesId);
+router.put("/:id", authenticationMiddleware, upload.single("imageCourseUrl"), getupdatecourse);
 
 export default router;

@@ -7,6 +7,7 @@ import { uploadFile } from "../service/storage.service.js";
 
 export const registerUser = async (req, res) => {
   try {
+    
     const { fullname, email, password, role } = req.body;
 
     const userExists = await findOneUser({ $or: [{ fullname }, { email }] });

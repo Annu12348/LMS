@@ -32,7 +32,7 @@ const Dashboard = () => {
       <div className="w-full min-h-screen  flex  overflow-y-auto overflow-x-hidden">
         <Navigation />
         <SizeNavigation />
-        <div className="w-[81%] h-[10vh]  mt-16 p-5  ">
+        <div className="w-[81%] min-h-[10vh]  mt-16 p-5  ">
           <div className="flex items-center justify-between">
             <h1 className="text-md  font-semibold">
               Add detail information regarding course

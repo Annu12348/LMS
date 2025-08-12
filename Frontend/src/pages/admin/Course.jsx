@@ -17,7 +17,7 @@ const Course = () => {
 
   const getcreatecourse = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/course/publishs/", {
+      const res = await axios.get("http://localhost:3000/course/fetchs", {
         withCredentials: true,
       });
       dispatch(setCourse(res.data.course));
@@ -27,8 +27,8 @@ const Course = () => {
   };
 
   useEffect(() => {
-    getcreatecourse();
-  }, []);
+    getcreatecourse()
+  },[]);
 
   return (
     <>
@@ -50,20 +50,20 @@ const Course = () => {
               <h1 className="w-[25%] text-right ">action</h1>
             </div>
 
-            {course.map((courses) => (
+            {course?.map((courses) => (
               <div
                 key={courses._id}
-                className="py-1 capitalize px-3 mt-2 rounded w-full flex items-center hover:bg-zinc-100  justify-between"
+                className="py-1 capitalize object-cover  px-3 mt-2 rounded w-full flex items-center hover:bg-zinc-100  justify-between"
               >
                 <div className="w-[25%]  flex items-center gap-4 ">
                   <img
                     className="object-center w-[15vh] h-[9vh] rounded "
-                    src={courses.imageUrl}
+                    src={courses.imageCourseUrl || `https://images.unsplash.com/photo-1754079132860-5b37dab49daa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw4fHx8ZW58MHx8fHx8`}
                   />
                   <p className="text-black">{courses.courseTitle}</p>
                 </div>
                 <h1 className="w-[25%] text-center text-black ">
-                  {courses.price || "NA"}
+                  ${courses.coursePrice || "NA"}
                 </h1>
                 <h1 className="w-[25%] text-center   ">
                   <span
@@ -74,7 +74,7 @@ const Course = () => {
                     {courses.isPublished ? "published" : "draft"}
                   </span>
                 </h1>
-                <Link to={`/admin/course/${courses._id}`} className="w-[25%] text-right flex items-center justify-end pr-3 text-2xl text-black ">
+                <Link to={`/admin/course/${courses._id}`} className="w-[25%] text-right flex items-center justify-end pr-3 text-xl text-black ">
                   <span>
                     <TiEdit />
                   </span>
