@@ -47,6 +47,8 @@ export const getpublishedcourses = async (req, res) => {
 
 export const getpublishedcoursesId = async (req, res) => {
   try {
+    //creator
+    //req.user.id = userid
     const course = await courseModel.find().sort({ createdAt: -1 });
     res.status(200).json({
       message: "Courses fetched successfully",
@@ -97,7 +99,7 @@ export const getupdatecourse = async (req, res) => {
           coursePrice,
           isPublished,
           imageCourseUrl: imageCourseUrl,
-        }
+        },
       },
       { new: true }
     );
@@ -110,6 +112,27 @@ export const getupdatecourse = async (req, res) => {
 
     res.status(200).json({
       message: "course updated successfully",
+      course,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "internal server error, please try again latter",
+    });
+  }
+};
+
+export const getcourseById = async (req, res) => {
+  try {
+    const { courseId } = req.params.id;
+    const course = await courseModel.findOne({ courseId });
+    if (!course) {
+      return res.status(404).json({
+        message: "course not found",
+      });
+    }
+    res.status(200).json({
+      message: "course fetch successfully fetch course",
       course,
     });
   } catch (error) {

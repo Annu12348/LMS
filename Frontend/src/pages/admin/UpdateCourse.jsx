@@ -5,31 +5,15 @@ import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import CourseTab from "./CourseTab";
 
-const Dashboard = () => {
+const UpdateCourse = () => {
   document.title = "LMS | Admin-Dashboard";
   const { user } = useSelector((store) => store.authentication);
+  
 
-  const enrollCoursesData = [
-    {
-      enroll: 5,
-      description: "Total Enrolled Courses",
-    },
-    {
-      enroll: 12,
-      description: "Completed Assignments",
-    },
-    {
-      enroll: 3,
-      description: "Pending Quizzes",
-    },
-    {
-      enroll: 2,
-      description: "Purchased Courses",
-    },
-  ];
+  
   return (
     <>
-      <div className="w-full min-h-screen  flex  overflow-y-auto overflow-x-hidden">
+      <div className="w-full min-h-screen  flex   overflow-y-auto overflow-x-hidden">
         <Navigation />
         <SizeNavigation />
         <div className="w-[81%] min-h-[10vh]  mt-16 p-5  ">
@@ -49,4 +33,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default UpdateCourse;

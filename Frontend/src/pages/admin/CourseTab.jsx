@@ -1,6 +1,7 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const CourseTab = () => {
   
@@ -95,9 +96,12 @@ const CourseTab = () => {
       </div>
       <img
         className="w-[27%] mt-5 rounded  h-[25vh] object-center "
-        src="https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736408421/vdb6ubcbyzfw2ptaimiu.png"
+        src="https://ik.imagekit.io/4wk1vphpr/image/image-file1754957159047_NDaFJY50y.jpg"
       />
-      <Link to='/admin/course' className="font-semibold capitalize bg-red-500 text-white px-4 py-2 rounded mt-5 mr-5 ">
+      <Link
+        to="/admin/course"
+        className="font-semibold capitalize bg-red-500 text-white px-4 py-2 rounded mt-5 mr-5 "
+      >
         cancel
       </Link>
       <button className="font-semibold capitalize bg-black text-white px-4 py-2 rounded mt-5 mr-5 ">

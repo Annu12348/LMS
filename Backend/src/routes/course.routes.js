@@ -1,7 +1,8 @@
 import express from "express";
-import multer from "multer"
+import multer from "multer";
 import {
   createcourse,
+  getcourseById,
   getpublishedcourses,
   getpublishedcoursesId,
   getupdatecourse,
@@ -15,6 +16,12 @@ const upload = multer({ storage: storage });
 router.post("/courses", authenticationMiddleware, createcourse);
 router.get("/publish", authenticationMiddleware, getpublishedcourses);
 router.get("/fetchs", authenticationMiddleware, getpublishedcoursesId);
-router.put("/:id", authenticationMiddleware, upload.single("imageCourseUrl"), getupdatecourse);
+router.put(
+  "/:id",
+  authenticationMiddleware,
+  upload.single("imageCourseUrl"),
+  getupdatecourse
+);
+router.get("/:id", authenticationMiddleware, getcourseById);
 
 export default router;

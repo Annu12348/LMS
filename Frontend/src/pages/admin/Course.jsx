@@ -13,7 +13,6 @@ const Course = () => {
   document.title = "LMS | Admin-Course";
   const dispatch = useDispatch();
   const { course } = useSelector((store) => store.course);
-  console.log(course);
 
   const getcreatecourse = async () => {
     try {
