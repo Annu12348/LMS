@@ -4,10 +4,14 @@ import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 import CourseTab from "./CourseTab";
+import { Link, useParams } from "react-router-dom";
 
 const UpdateCourse = () => {
   document.title = "LMS | Admin-Dashboard";
   const { user } = useSelector((store) => store.authentication);
+  const params = useParams()
+  const courseid = params.courseId
+  console.log(courseid)
   
 
   
@@ -21,9 +25,9 @@ const UpdateCourse = () => {
             <h1 className="text-md  font-semibold">
               Add detail information regarding course
             </h1>
-            <p className="text-md hover:text-blue-500 hover:underline capitalize font-semibold cursor-pointer">
+            <Link to={`/admin/course/${courseid}/lecture`} className="text-md hover:text-blue-500 hover:underline capitalize font-semibold cursor-pointer">
               go to leatures page
-            </p>
+            </Link>
           </div>
           <CourseTab />
         </div>

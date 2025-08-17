@@ -43,11 +43,11 @@ const Dashboard = () => {
 
         <div className="w-full flex items-center gap-10 mt-5">
           {enrollCoursesData.map((enrolls, index) => (
-            <div className="p-2 shadow  w-[24%]  rounded bg-white flex flex-col items-center">
+            <div key={index} className="p-2 shadow  w-[24%]  rounded bg-white flex flex-col items-center">
               <h1 className="font-semibold text-xl">{enrolls.enroll}</h1>
-              <h className="font-semibold text-zinc-600">
+              <h1 className="font-semibold text-zinc-600">
                 {enrolls.description}
-              </h>
+              </h1>
             </div>
           ))}
         </div>

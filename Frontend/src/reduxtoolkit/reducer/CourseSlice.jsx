@@ -1,20 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  course: null,
-}
+  course: [],
+  singleCourse: null
+};
 
 const CourseSlice = createSlice({
-  name: 'course',
+  name: "course",
   initialState,
   reducers: {
-    setCourse:((state, action) => {
-        state.course = action.payload
-    })
+    setCourse: (state, action) => {
+      state.course = action.payload;
+    },
+    setSingleCourse: (state, action) => {
+      state.singleCourse = action.payload;
     }
-})
+  },
+});
 
 // Action creators are generated for each case reducer function
-export const { setCourse } = CourseSlice.actions
+export const { setCourse, setSingleCourse } = CourseSlice.actions;
 
-export default CourseSlice.reducer
+export default CourseSlice.reducer;

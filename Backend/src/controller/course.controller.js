@@ -124,8 +124,8 @@ export const getupdatecourse = async (req, res) => {
 
 export const getcourseById = async (req, res) => {
   try {
-    const { courseId } = req.params.id;
-    const course = await courseModel.findOne({ courseId });
+    const { id } = req.params
+    const course = await courseModel.findById(id);
     if (!course) {
       return res.status(404).json({
         message: "course not found",
