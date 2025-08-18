@@ -8,6 +8,7 @@ import {
   getupdatecourse,
 } from "../controller/course.controller.js";
 import { authenticationMiddleware } from "../middleware/authentication.middleware.js";
+import { getlLectureCourseFetch, lectureController } from "../controller/lecture.controller.js";
 const router = express.Router();
 
 const storage = multer.memoryStorage();
@@ -23,5 +24,10 @@ router.put(
   getupdatecourse
 );
 router.get("/:id", authenticationMiddleware, getcourseById);
+
+//lecture course
+
+router.post("/:id/lecture", authenticationMiddleware, lectureController);
+router.get("/:id/lectures", authenticationMiddleware, getlLectureCourseFetch);
 
 export default router;
