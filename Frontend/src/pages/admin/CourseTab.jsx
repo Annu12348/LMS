@@ -38,6 +38,7 @@ const CourseTab = () => {
       formData.append("courseTitle", singleCourse?.courseTitle || "");
       formData.append("subTitle", singleCourse?.subTitle || "");
       formData.append("category", singleCourse?.category || "");
+      formData.append("courseLevel", singleCourse?.courseLevel || "")
       formData.append("coursePrice", singleCourse?.coursePrice || 0);
       formData.append("description", singleCourse?.description || "");
       formData.append("isPublished", singleCourse?.isPublished || false);
@@ -134,15 +135,16 @@ const CourseTab = () => {
             className="border-1 border-zinc-300 text-zinc-600 px-3 py-2 rounded mt-1.5 outline-none"
           >
             <option value="">Category</option>
-            <option value="Node Js">Node Js</option>
-            <option value="Java">Java</option>
-            <option value="PHP">PHP</option>
+            <option value="Next Js">Next Js</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Docker">Docker</option>
             <option value="Phython">Phython</option>
             <option value="mern_stack">Mern Stack Developer</option>
             <option value="front-end-developer">Front-End-Developer</option>
-            <option value="react-developer">React-Developer</option>
-            <option value="javascript-developer">JavaScript-Developer</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="MongoDB">MongoDB</option>
             <option value="back-end-developer">Back-End-Developer</option>
+            <option value="HTML">HTML</option>
           </select>
         </div>
         <div className="flex flex-col w-[28%]">
@@ -160,8 +162,8 @@ const CourseTab = () => {
             className="border-1 border-zinc-300 text-zinc-600 px-3 py-2 rounded mt-1.5 outline-none"
           >
             <option value="">Course Level</option>
-            <option value="Beginner">Beginner</option>
-            <option value="Medium">Medium</option>
+            <option value="Biginner">Biginner</option>
+            <option value="Middium">Middium</option>
             <option value="Advance">Advance</option>
           </select>
         </div>

@@ -27,7 +27,7 @@ router.get("/:id", authenticationMiddleware, getcourseById);
 
 //lecture course
 
-router.post("/:id/lecture", authenticationMiddleware, lectureController);
-router.get("/:id/lectures", authenticationMiddleware, getlLectureCourseFetch);
+router.post("/:id/lecture/create", authenticationMiddleware, lectureController);
+router.get("/:id/lecture/read", authenticationMiddleware, getlLectureCourseFetch);
 
 export default router;
