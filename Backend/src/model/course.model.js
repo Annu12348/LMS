@@ -22,7 +22,7 @@ const courseSchema = new mongoose.Schema(
     },
     courseLevel: {
       type: String,
-      enum: ["Biginner", "Middium", "Advance"],
+      enum: ["Biginner", "Middium", "Advance", ""],
     },
     imageCourseUrl: {
       type: String,
@@ -30,6 +30,10 @@ const courseSchema = new mongoose.Schema(
     },
     coursePrice: {
       type: Number,
+    },
+    publicId: {
+      type: String,
+      default: ""
     },
     enrollStudent: {
       type: mongoose.Schema.Types.ObjectId,

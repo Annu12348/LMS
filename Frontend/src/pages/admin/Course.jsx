@@ -70,7 +70,7 @@ const Course = () => {
                     <p className="text-black">{courses.courseTitle}</p>
                   </div>
                   <h1 className="w-[25%] text-center text-black">
-                    {courses.coursePrice ? `$${courses.coursePrice}` : "NA"}
+                    {courses.coursePrice ? `₹${courses.coursePrice}` : "NA"}
                   </h1>
                   <h1 className="w-[25%] text-center">
                     <span

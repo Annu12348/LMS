@@ -11,7 +11,6 @@ const UpdateCourse = () => {
   const { user } = useSelector((store) => store.authentication);
   const params = useParams()
   const courseid = params.courseId
-  console.log(courseid)
   
 
   

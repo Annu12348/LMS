@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  lecture: null
+  lecture: [],
+  SingleLectureCourse: null,
 };
 
 const LectureSlice = createSlice({
@@ -11,10 +12,13 @@ const LectureSlice = createSlice({
     setLecture: (state, action) => {
       state.lecture = action.payload;
     },
+    setSingleLectureCourse: (state, action) => {
+      state.SingleLectureCourse = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setLecture } = LectureSlice.actions;
+export const { setLecture, setSingleLectureCourse } = LectureSlice.actions;
 
 export default LectureSlice.reducer;

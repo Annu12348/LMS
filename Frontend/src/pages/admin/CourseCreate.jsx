@@ -20,6 +20,7 @@ const CourseCreate = () => {
         { category, subTitle, courseTitle },
         { withCredentials: true }
       );
+      
       navigate(-1)
       
     } catch (error) {
@@ -84,16 +85,17 @@ const CourseCreate = () => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-              <option value="">Select category</option>
-              <option value="Node Js">Node Js</option>
-              <option value="Java">Java</option>
-              <option value="PHP">PHP</option>
-              <option value="Phython">Phython</option>
-              <option value="mern_stack">Mern Stack Developer</option>
-              <option value="front-end-developer">Front-End-Developer</option>
-              <option value="react-developer">React-Developer</option>
-              <option value="javascript-developer">JavaScript-Developer</option>
-              <option value="back-end-developer">Back-End-Developer</option>
+            <option value="">Category</option>
+            <option value="Next Js">Next Js</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Docker">Docker</option>
+            <option value="Phython">Phython</option>
+            <option value="mern_stack">Mern Stack Developer</option>
+            <option value="front-end-developer">Front-End-Developer</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="MongoDB">MongoDB</option>
+            <option value="back-end-developer">Back-End-Developer</option>
+            <option value="HTML">HTML</option>
             </select>
           </div>
           <button

@@ -1,12 +1,12 @@
 import courseModel from "../model/course.model.js";
-import { uploadFile } from "../service/storage.service.js";
+import { Imagekit, uploadFile } from "../service/storage.service.js";
 
 export const createcourse = async (req, res) => {
   try {
-    const { courseTitle, subTitle } = req.body;
+    const { courseTitle, subTitle, category } = req.body;
 
     if (!courseTitle || !subTitle) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "coursetitle aur subtitle dono required hone chahiye",
       });
     }
@@ -14,6 +14,7 @@ export const createcourse = async (req, res) => {
     const course = await courseModel.create({
       courseTitle,
       subTitle,
+      category,
       creator: req.user.id,
     });
 
@@ -76,6 +77,7 @@ export const getupdatecourse = async (req, res) => {
 
     const imagesfile = await uploadFile(req.file.buffer, req.file.originalname);
     const imageCourseUrl = imagesfile.url;
+    const publicId = imagesfile.fileId;
 
     const {
       courseTitle,
@@ -86,6 +88,22 @@ export const getupdatecourse = async (req, res) => {
       coursePrice,
       isPublished,
     } = req.body;
+
+    const courses = await courseModel.findById(courseId);
+    if (!courses) {
+      return res.status(404).json({
+        message: "course not found",
+      });
+    }
+
+    //imagekit se old image/video ko remove new image/video add karne se pahle
+    if (courses.publicId) {
+      try {
+        await Imagekit.deleteFile(courses.publicId);
+      } catch (error) {
+        console.log("Old video delete failed:", error.message);
+      }
+    }
 
     const course = await courseModel.findOneAndUpdate(
       { _id: courseId },
@@ -99,6 +117,7 @@ export const getupdatecourse = async (req, res) => {
           coursePrice,
           isPublished,
           imageCourseUrl: imageCourseUrl,
+          publicId: publicId,
         },
       },
       { new: true }
@@ -124,7 +143,7 @@ export const getupdatecourse = async (req, res) => {
 
 export const getcourseById = async (req, res) => {
   try {
-    const { id } = req.params
+    const { id } = req.params;
     const course = await courseModel.findById(id);
     if (!course) {
       return res.status(404).json({
@@ -142,3 +161,72 @@ export const getcourseById = async (req, res) => {
     });
   }
 };
+
+export const deleteCourseController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(404).json({
+        message: "id are required",
+      });
+    }
+
+    const courses = await courseModel.findById(id);
+    if (!courses) {
+      return res.status(404).json({
+        message: "course not found",
+      });
+    }
+
+    //imagekit se video/image ko delete karna
+    if (courses.publicId) {
+      try {
+        await Imagekit.deleteFile(courses.publicId);
+      } catch (error) {
+        console.log("image not deleted:", error.message);
+      }
+    }
+
+    const course = await courseModel.findOneAndDelete({ _id: id });
+
+    res.status(200).json({
+      message: "deleted course successfully",
+      course,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "internal server error, please try again latter",
+    });
+  }
+};
+
+export const toggelIspublishedCourse = async (req, res) => {
+  try{
+    const { id } = req.params;
+
+    const course = await courseModel.findById(id);
+    if(!course){
+      return res.status(404).json({
+        message: "course not found"
+      })
+    }
+
+    course.isPublished = !course.isPublished;
+    await course.save();
+
+    const statusMessage = course.isPublished ? "published" : "unpublished"
+
+    res.status(200).json({
+      message: "Course publish status updated successfully",
+      course: course.isPublished,
+      statusMessage
+    })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "internal server error, please try again latter",
+    });
+  }
+}

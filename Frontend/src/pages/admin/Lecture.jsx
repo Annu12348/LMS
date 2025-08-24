@@ -23,15 +23,15 @@ const Lecture = () => {
           lecturs,
           { withCredentials: true }
         );
-        
+
         setLecturs(res.data.lecture);
-        setLecturs({lectureTitle: ""})
-        getfetchapi()
+        setLecturs({ lectureTitle: "" });
+        await getfetchapi();
       } catch (error) {
         alert("no create lecture course");
       }
     };
-    postcreateapi();    
+    postcreateapi();
   };
 
   const getfetchapi = async () => {
@@ -82,7 +82,6 @@ const Lecture = () => {
               back to course
             </button>
             <button
-            
               onClick={clickedHandlers}
               className="bg-black text-white px-4 py-4 rounded hover:bg-blue-500 font-semibold capitalize tracking-tight leading-none "
             >
@@ -90,19 +89,29 @@ const Lecture = () => {
             </button>
           </div>
           <div className="mt-7 ">
-            {lecture.map((lecture, index) => (
-              <div
-                key={index}
-                className="px-3 py-3 w-[90%] mt-3 bg-white rounded flex items-center justify-between"
-              >
-                <h1 className="text-md font-semibold capitalize leading-none tracking-tight ">
-                  leature - 1 : {lecture.lectureTitle}
-                </h1>
-                <span className="text-zinc-600 text-xl">
-                  <TiEdit />
-                </span>
-              </div>
-            ))}
+            {lecture?.length > 0
+              ? lecture.map((lecture, index) => (
+                  <div
+                    key={lecture._id}
+                    className="px-3 py-3 w-[90%] mt-3 bg-white rounded flex items-center justify-between"
+                  >
+                    <h1 className="text-md font-semibold capitalize leading-none tracking-tight ">
+                      leature - 1 :{" "}
+                      <span className="font-normal">
+                        {lecture.lectureTitle}
+                      </span>
+                    </h1>
+
+                    <Link
+                      to={`/admin/course/${courseId}/lecture/${lecture._id}`}
+                    >
+                      <span className="text-zinc-600 text-xl">
+                        <TiEdit />
+                      </span>
+                    </Link>
+                  </div>
+                ))
+              : <h1 className="text-md capitalize font-semibold text-zinc-300">no lectures found</h1>}
           </div>
         </div>
       </div>

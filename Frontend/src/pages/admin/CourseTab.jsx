@@ -9,13 +9,10 @@ const CourseTab = () => {
   const id = params.courseId;
   const { singleCourse } = useSelector((store) => store.course);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getcourseById = async () => {
     try {
-      
-      
-
       const response = await axios.get(`http://localhost:3000/course/${id}`, {
         withCredentials: true,
       });
@@ -30,38 +27,71 @@ const CourseTab = () => {
   }, [id]);
 
   const clickedHandler = () => {
+    const formData = new FormData();
 
+    formData.append("courseTitle", singleCourse?.courseTitle || "");
+    formData.append("subTitle", singleCourse?.subTitle || "");
+    formData.append("category", singleCourse?.category || "");
+    formData.append("courseLevel", singleCourse?.courseLevel || "");
+    formData.append("coursePrice", singleCourse?.coursePrice || 0);
+    formData.append("description", singleCourse?.description || "");
+    formData.append("isPublished", singleCourse?.isPublished || false);
 
+    if (singleCourse.file) {
+      formData.append("imageCourseUrl", singleCourse?.file);
+    }
 
-    const formData = new FormData()
-
-      formData.append("courseTitle", singleCourse?.courseTitle || "");
-      formData.append("subTitle", singleCourse?.subTitle || "");
-      formData.append("category", singleCourse?.category || "");
-      formData.append("courseLevel", singleCourse?.courseLevel || "")
-      formData.append("coursePrice", singleCourse?.coursePrice || 0);
-      formData.append("description", singleCourse?.description || "");
-      formData.append("isPublished", singleCourse?.isPublished || false);
-
-      if(singleCourse.file){
-        formData.append("imageCourseUrl", singleCourse?.file)
-      }
-
-
-
-
-    
     const putadminCourseUpdate = async () => {
       try {
-        const res = await axios.put(`http://localhost:3000/course/${id}`, formData, {
-          withCredentials: true,
-        });
+        const res = await axios.put(
+          `http://localhost:3000/course/${id}`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        );
         navigate(-1);
       } catch (error) {
         alert("update admin course data not");
       }
     };
-    putadminCourseUpdate()
+    putadminCourseUpdate();
+  };
+
+  const onClickHandler = () => {
+    try {
+      const courseDeleteApi = async () => {
+        const resposes = await axios.delete(
+          `http://localhost:3000/course/${id}`,
+          { withCredentials: true }
+        );
+
+        navigate(-1);
+      };
+      courseDeleteApi();
+    } catch (error) {
+      alert("course deleted successfully");
+    }
+  };
+
+  const toggelOnClickedHandler = () => {
+    try {
+      const toggelIspublishedCourseApi = async () => {
+        const res = await axios.patch(
+          `http://localhost:3000/course/${id}`,
+          {},
+          {
+            withCredentials: true,
+          }
+        );
+        const update = res.data.course;
+        dispatch(setSingleCourse({ ...singleCourse, isPublished: update }));
+        console.log(update);
+      };
+      toggelIspublishedCourseApi();
+    } catch (error) {
+      alert("no toggel isPublished api");
+    }
   };
 
   return (
@@ -71,11 +101,18 @@ const CourseTab = () => {
           <h1 className="font-bold mb-0.5">Basic Course Information</h1>
           <p>Make changes to your courses here. Click save when you're done.</p>
         </div>
-        <div>
-          <button className="bg-black text-white px-5 py-2 rounded mr-5 capitalize font-semibold">
-            unPublished
+
+        <div className="flex gap-4">
+          <button
+            onClick={toggelOnClickedHandler}
+            className="bg-black px-5 py-2 cursor-pointer rounded  capitalize font-semibold text-white"
+          >
+            {singleCourse.isPublished ? "Published" : "unPublished"}
           </button>
-          <button className="bg-red-500 px-5 py-2 rounded  capitalize font-semibold text-white">
+          <button
+            onClick={onClickHandler}
+            className="bg-red-500 px-5 cursor-pointer py-2 rounded  capitalize font-semibold text-white"
+          >
             remove course
           </button>
         </div>
@@ -184,31 +221,9 @@ const CourseTab = () => {
             }
           />
         </div>
-        <div className="flex flex-col w-[28%]">
-          <label className="font-semibold capitalize">isPublished</label>
-          <select
-            onChange={(e) =>
-              dispatch(
-                setSingleCourse({
-                  ...singleCourse,
-                  isPublished: e.target.value === "true",
-                })
-              )
-            }
-            value={
-              singleCourse?.isPublished === true
-                ? "true"
-                : singleCourse?.isPublished === false
-                ? "false"
-                : ""
-            }
-            className="border-1 border-zinc-300 text-zinc-600 px-3 py-2 rounded mt-1.5 outline-none"
-          >
-            <option value="">isPublished</option>
-            <option value="true">true</option>
-            <option value="false">false</option>
-          </select>
-        </div>
+
+
+        
       </div>
       <div className="flex flex-col mt-4">
         <label className="font-semibold tracking-tight leading-none ">
@@ -217,25 +232,29 @@ const CourseTab = () => {
         <input
           className="border w-[20%] px-2 py-1 rounded border-zinc-400 mt-2 "
           type="file"
-          onChange={(e)=>dispatch(setSingleCourse({...singleCourse, file: e.target.files[0]}))}
+          onChange={(e) =>
+            dispatch(
+              setSingleCourse({ ...singleCourse, file: e.target.files[0] })
+            )
+          }
         />
       </div>
       <img
         className="w-[27%] mt-5 rounded  h-[25vh] object-center "
         src={
-          singleCourse.imageCourseUrl ||
+          singleCourse?.imageCourseUrl ||
           "https://media.istockphoto.com/id/899881854/photo/nice-mountains-in-kyrgyzstan-country.jpg?s=612x612&w=0&k=20&c=gtsUw4W1aILn09irfxPm_1Olt6DU4cwu9OGd01qgy8g="
         }
       />
       <Link
         to="/admin/course"
-        className="font-semibold capitalize bg-red-500 text-white px-4 py-2 rounded mt-5 mr-5 "
+        className="font-semibold cursor-pointer capitalize bg-red-500 text-white px-4 py-2 rounded mt-5 mr-5 "
       >
         cancel
       </Link>
       <button
         onClick={clickedHandler}
-        className="font-semibold capitalize bg-black text-white px-4 py-2 rounded mt-5 mr-5 "
+        className="font-semibold capitalize cursor-pointer bg-black text-white px-4 py-2 rounded mt-5 mr-5 "
       >
         save
       </button>

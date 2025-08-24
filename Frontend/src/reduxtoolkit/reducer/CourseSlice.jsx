@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   course: [],
+  publisheds: [],
   singleCourse: null
 };
 
@@ -14,11 +15,14 @@ const CourseSlice = createSlice({
     },
     setSingleCourse: (state, action) => {
       state.singleCourse = action.payload;
+    },
+    setPublisheds: (state, action) => {
+      state.publisheds = action.payload
     }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setCourse, setSingleCourse } = CourseSlice.actions;
+export const { setCourse, setSingleCourse, setPublisheds } = CourseSlice.actions;
 
 export default CourseSlice.reducer;

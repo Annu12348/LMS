@@ -11,6 +11,8 @@ import Course from "../pages/admin/Course";
 import CourseCreate from "../pages/admin/CourseCreate";
 import UpdateCourse from "../pages/admin/UpdateCourse";
 import Lecture from "../pages/admin/Lecture";
+import LectureUpdate from "../pages/admin/LectureUpdate";
+import CourseDetails from "../pages/CourseDetails";
 
 const Router = () => {
   return (
@@ -18,6 +20,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseDetails />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
@@ -25,6 +28,7 @@ const Router = () => {
         <Route path="/admin/course/create" element={<CourseCreate />} />
         <Route path="/admin/course/:courseId" element={<UpdateCourse />} />
         <Route path="/admin/course/:courseId/lecture" element={<Lecture />} />
+        <Route path="/admin/course/:courseId/lecture/:lectureId" element={<LectureUpdate />} />
         <Route path="/profile" element={<Profile />}>
           <Route path="/profile/:id" element={<EditProfile />} />
         </Route>
