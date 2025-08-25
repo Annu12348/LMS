@@ -15,6 +15,7 @@ const CourseDetails = () => {
   const { course } = useSelector((store) => store.course);
   const courses = course.find((course) => course._id === courseId);
   const [lecturess, setLecturess] = useState([]);
+ 
   
 
 
@@ -22,7 +23,7 @@ const CourseDetails = () => {
   
   const [ searchParams, setSearchParams ] = useSearchParams();
   const selectedLecturesId = searchParams.get("lecture");
-  console.log(selectedLecturesId)
+  // console.log(selectedLecturesId)
   
 
   const fetchLectures = async () => {
@@ -31,14 +32,26 @@ const CourseDetails = () => {
         `http://localhost:3000/course/${courseId}/lecture/read`,
         { withCredentials: true }
       );
+
+      console.log(response);
+      
       setLecturess(response.data.lectures || []);
     } catch (error) {
       alert("Lecture not fetched");
     }
   };
 
+
+  
+  
+
+  
+  
+
   useEffect(() => {
     fetchLectures();
+    
+  console.log(lecturess);
     // eslint-disable-next-line
   }, [courseId]);
 
@@ -54,7 +67,9 @@ const CourseDetails = () => {
     }
   }, [lecturess, selectedLecturesId])
 
-  
+  console.log(lecturess);
+  console.log(selectedLectures);
+  console.log(selectedLectures.videoUrl);
   
   return (
     <>
@@ -259,7 +274,7 @@ const CourseDetails = () => {
                     key={selectedLectures?._id || "default-video"}
                     src={selectedLectures?.videoUrl || "https://videos.pexels.com/video-files/33535071/14259887_1440_2560_30fps.mp4"}
                     controls
-                    autoPlay
+                    autoPlay muted loop
                     className="w-full h-full object-cover"
                     />
                   
@@ -349,6 +364,6 @@ const CourseDetails = () => {
       <Footer />
     </>
   );
-};
+  }
 
 export default CourseDetails;
