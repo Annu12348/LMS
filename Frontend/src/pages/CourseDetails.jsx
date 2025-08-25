@@ -15,16 +15,12 @@ const CourseDetails = () => {
   const { course } = useSelector((store) => store.course);
   const courses = course.find((course) => course._id === courseId);
   const [lecturess, setLecturess] = useState([]);
- 
-  
 
+  const [selectedLectures, setSelectedLecture] = useState(null);
 
-  const [selectedLectures, setSelectedLecture] = useState(null)
-  
-  const [ searchParams, setSearchParams ] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const selectedLecturesId = searchParams.get("lecture");
   // console.log(selectedLecturesId)
-  
 
   const fetchLectures = async () => {
     try {
@@ -34,43 +30,33 @@ const CourseDetails = () => {
       );
 
       console.log(response);
-      
+
       setLecturess(response.data.lectures || []);
     } catch (error) {
       alert("Lecture not fetched");
     }
   };
 
-
-  
-  
-
-  
-  
-
   useEffect(() => {
     fetchLectures();
-    
-  console.log(lecturess);
+
+    console.log(lecturess);
     // eslint-disable-next-line
   }, [courseId]);
 
-  
   useEffect(() => {
-    if(lecturess.length > 0){
-      if(selectedLecturesId){
-        const found = lecturess.find(lectur => lectur._id === selectedLecturesId);
-        setSelectedLecture(found || lecturess[0])
-      }else{
-        setSelectedLecture(lecturess[0])
+    if (lecturess.length > 0) {
+      if (selectedLecturesId) {
+        const found = lecturess.find(
+          (lectur) => lectur._id === selectedLecturesId
+        );
+        setSelectedLecture(found || lecturess[0]);
+      } else {
+        setSelectedLecture(lecturess[0]);
       }
     }
-  }, [lecturess, selectedLecturesId])
+  }, [lecturess, selectedLecturesId]);
 
-  console.log(lecturess);
-  console.log(selectedLectures);
-  console.log(selectedLectures.videoUrl);
-  
   return (
     <>
       <div className="w-full min-h-screen py-3">
@@ -156,185 +142,66 @@ const CourseDetails = () => {
               Beginners, aspiring developers, and professionals looking to
               upgrade skill
             </p>
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             {lecturess.length > 0 ? (
-
               <div className="w-full mt-18 justify-between flex items-start">
-              <div className=" w-[63%] ">
-                <h1 className="text-xl font-semibold tracking-tight">
-                  Course Curriculum
-                </h1>
-                <p className="italic ">{lecturess.length} lectures</p>
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                {lecturess.map(lecture => (
-
-                  <div key={lecture._id} onClick={() => setSearchParams({lecture: lecture._id})}  className="w-full bg-zinc-300 mt-2 flex gap-4  items-center p-3 rounded">
-                  <span className="mt-1 text-2xl">
-                    {lecture.ispreviewFree ? <IoPlayCircleOutline /> : <FaLock />}
-                  </span>
-                  <h1 className="capitalize font-semibold tracking-tight text-xl">
-                    {lecture.lectureTitle}
+                <div className=" w-[63%] ">
+                  <h1 className="text-xl font-semibold tracking-tight">
+                    Course Curriculum
                   </h1>
+                  <p className="italic ">{lecturess.length} lectures</p>
+
+                  {lecturess.map((lecture) => (
+                    <div
+                      key={lecture._id}
+                      onClick={() => setSearchParams({ lecture: lecture._id })}
+                      className="w-full bg-zinc-300 mt-2 flex gap-4  items-center p-3 rounded"
+                    >
+                      <span className="mt-1 text-2xl">
+                        {lecture.ispreviewFree ? (
+                          <IoPlayCircleOutline />
+                        ) : (
+                          <FaLock />
+                        )}
+                      </span>
+                      <h1 className="capitalize font-semibold tracking-tight text-xl">
+                        {lecture.lectureTitle}
+                      </h1>
+                    </div>
+                  ))}
                 </div>
-                ))}
-                
-                
-
-
-
-
-
-
-
-
-
-              </div>
-              <div className="card w-[33%] p-2 shadow border-1 border-zinc-200 relative z-10 ">
-                <div className="video w-full h-[35vh]  rounded overflow-hidden bg-amber-200  ">
-                  
+                <div className="card w-[33%] p-2 shadow border-1 border-zinc-200 relative z-10 ">
+                  <div className="video w-full h-[35vh]  rounded overflow-hidden bg-amber-200  ">
                     <video
-                  
-                    key={selectedLectures?._id || "default-video"}
-                    src={selectedLectures?.videoUrl || "https://videos.pexels.com/video-files/33535071/14259887_1440_2560_30fps.mp4"}
-                    controls
-                    autoPlay muted loop
-                    className="w-full h-full object-cover"
+                      key={selectedLectures?._id || "default-video"}
+                      src={
+                        selectedLectures?.videoUrl ||
+                        "https://videos.pexels.com/video-files/33535071/14259887_1440_2560_30fps.mp4"
+                      }
+                      controls
+                      muted
+                      className="w-full h-full object-cover"
                     />
-                  
-                    
-
-
-                 
-
-
-
-
-
-
-
-                  
+                  </div>
+                  <h1 className="font-semibold capitalize mt-2 tracking-tight">
+                    {selectedLectures
+                      ? selectedLectures.lectureTitle
+                      : "hey this is the subtitle for trial course"}
+                  </h1>
+                  <hr className="text-zinc-300 mt-2" />
+                  <p className="text-md tracking-tight leading-5 mt-3">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                    Natus, aspernatur a sed dolores possimus inventore amet quos
+                    ab rerum illo.
+                  </p>
+                  <button className="text-md font-semibold capitalize mt-4 p-3 text-white bg-black rounded shadow ">
+                    continue course
+                  </button>
                 </div>
-                <h1 className="font-semibold capitalize mt-2 tracking-tight">
-                  {selectedLectures ? selectedLectures.lectureTitle : "hey this is the subtitle for trial course"}
-                </h1>
-                <hr className="text-zinc-300 mt-2" />
-                <p className="text-md tracking-tight leading-5 mt-3">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Natus, aspernatur a sed dolores possimus inventore amet quos
-                  ab rerum illo.
-                </p>
-                <button className="text-md font-semibold capitalize mt-4 p-3 text-white bg-black rounded shadow ">
-                  continue course
-                </button>
               </div>
-            </div>
-            ) : "Loading..."}
-
-
-
-
-            
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            ) : (
+              "Loading..."
+            )}
 
             <h1 className="text-xl mt-6 font-semibold capitalize ">
               instructor
@@ -364,6 +231,6 @@ const CourseDetails = () => {
       <Footer />
     </>
   );
-  }
+};
 
 export default CourseDetails;

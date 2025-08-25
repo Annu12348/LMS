@@ -30,7 +30,7 @@ export const uploadVideo = (file, originalName) => {
     return new Promise((resolve, reject) => {
         Imagekit.upload({
             file: file,
-            fileName: "image-file" + Date.now() + ext,
+            fileName: "video-file" + Date.now() + ext,
             folder: "/video"
         }, (error, result) => {
             if(error){

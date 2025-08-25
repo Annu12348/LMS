@@ -8,9 +8,8 @@ import { Link, useParams } from "react-router-dom";
 
 const Courses = () => {
   const dispatch = useDispatch();
-  const { publisheds } = useSelector(store => store.course)
-  const { user } = useSelector(store => store.authentication)
-  
+  const { publisheds } = useSelector((store) => store.course);
+  const { user } = useSelector((store) => store.authentication);
 
   const coursesData = [
     {
@@ -50,15 +49,14 @@ const Courses = () => {
       const respons = await axios.get("http://localhost:3000/course/publish", {
         withCredentials: true,
       });
-      dispatch(setPublisheds(respons.data.course))
+      dispatch(setPublisheds(respons.data.course));
     } catch (error) {
       alert("published not working");
     }
   };
 
   useEffect(() => {
-    publishedCoursesApi()
-    
+    publishedCoursesApi();
   }, []);
 
   return (
@@ -93,7 +91,10 @@ const Courses = () => {
                   <h1 className="text-sm tracking-tight mt-4 mb-2 leading-none ">
                     {courses.description}
                   </h1>
-                  <Link to={user ? `/courses/${courses._id}` : "/login"} className="mt-3 block w-fit bg-black text-white px-4 py-2 rounded shadow">
+                  <Link
+                    to={user ? `/courses/${courses._id}` : "/login"}
+                    className="mt-3 block w-fit bg-black text-white px-4 py-2 rounded shadow"
+                  >
                     Learn more
                   </Link>
                 </div>
