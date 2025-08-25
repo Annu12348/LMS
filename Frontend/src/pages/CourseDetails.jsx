@@ -1,21 +1,61 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { GoArrowLeft } from "react-icons/go";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { IoPlayCircleOutline } from "react-icons/io5";
 import { FaLock } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import store from "../reduxtoolkit/store";
+import axios from "axios";
 
 const CourseDetails = () => {
-  const params = useParams()
-  const courseId = params.courseId
-  const { user } = useSelector(store => store.authentication);
-  const { course } = useSelector(store => store.course);
+  const params = useParams();
+  const courseId = params.courseId;
+  const { user } = useSelector((store) => store.authentication);
+  const { course } = useSelector((store) => store.course);
+  const courses = course.find((course) => course._id === courseId);
+  const [lecturess, setLecturess] = useState([]);
   
- 
-  const courses = course.find(course => course._id === courseId)
+
+
+  const [selectedLectures, setSelectedLecture] = useState(null)
+  
+  const [ searchParams, setSearchParams ] = useSearchParams();
+  const selectedLecturesId = searchParams.get("lecture");
+  console.log(selectedLecturesId)
+  
+
+  const fetchLectures = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/course/${courseId}/lecture/read`,
+        { withCredentials: true }
+      );
+      setLecturess(response.data.lectures || []);
+    } catch (error) {
+      alert("Lecture not fetched");
+    }
+  };
+
+  useEffect(() => {
+    fetchLectures();
+    // eslint-disable-next-line
+  }, [courseId]);
+
+  
+  useEffect(() => {
+    if(lecturess.length > 0){
+      if(selectedLecturesId){
+        const found = lecturess.find(lectur => lectur._id === selectedLecturesId);
+        setSelectedLecture(found || lecturess[0])
+      }else{
+        setSelectedLecture(lecturess[0])
+      }
+    }
+  }, [lecturess, selectedLecturesId])
+
+  
+  
   return (
     <>
       <div className="w-full min-h-screen py-3">
@@ -101,55 +141,143 @@ const CourseDetails = () => {
               Beginners, aspiring developers, and professionals looking to
               upgrade skill
             </p>
-            <div className="w-full mt-18 justify-between flex items-start">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {lecturess.length > 0 ? (
+
+              <div className="w-full mt-18 justify-between flex items-start">
               <div className=" w-[63%] ">
                 <h1 className="text-xl font-semibold tracking-tight">
                   Course Curriculum
                 </h1>
-                <p className="italic ">4 lectures</p>
-                <div className="w-full bg-zinc-300 mt-2 flex gap-4  items-center p-4 rounded">
+                <p className="italic ">{lecturess.length} lectures</p>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {lecturess.map(lecture => (
+
+                  <div key={lecture._id} onClick={() => setSearchParams({lecture: lecture._id})}  className="w-full bg-zinc-300 mt-2 flex gap-4  items-center p-3 rounded">
                   <span className="mt-1 text-2xl">
-                    <IoPlayCircleOutline />
+                    {lecture.ispreviewFree ? <IoPlayCircleOutline /> : <FaLock />}
                   </span>
                   <h1 className="capitalize font-semibold tracking-tight text-xl">
-                    Introduction to Node JS
+                    {lecture.lectureTitle}
                   </h1>
                 </div>
-                <div className="w-full bg-zinc-300 mt-5 flex gap-4  items-center p-4 rounded">
-                  <span className="mt-0.5 text-2xl">
-                    <FaLock />
-                  </span>
-                  <h1 className="capitalize font-semibold tracking-tight text-xl">
-                    Basics of Node JS
-                  </h1>
-                </div>
-                <div className="w-full bg-zinc-300 mt-5 flex gap-4  items-center p-4 rounded">
-                  <span className="mt-0.5 text-2xl">
-                    <FaLock />
-                  </span>
-                  <h1 className="capitalize font-semibold tracking-tight text-xl">
-                    Basics of Node JS
-                  </h1>
-                </div>
-                <div className="w-full bg-zinc-300 mt-5 flex gap-4  items-center p-4 rounded">
-                  <span className="mt-0.5 text-2xl">
-                    <FaLock />
-                  </span>
-                  <h1 className="capitalize font-semibold tracking-tight text-xl">
-                    Basics of Node JS
-                  </h1>
-                </div>
+                ))}
+                
+                
+
+
+
+
+
+
+
+
+
               </div>
-              <div className="w-[33%] p-2 shadow border-1 border-zinc-200">
-                <div className="video w-full h-[35vh] rounded overflow-hidden bg-amber-200 ">
-                  <video
-                    src="https://videos.pexels.com/video-files/33535071/14259887_1440_2560_30fps.mp4"
+              <div className="card w-[33%] p-2 shadow border-1 border-zinc-200 relative z-10 ">
+                <div className="video w-full h-[35vh]  rounded overflow-hidden bg-amber-200  ">
+                  
+                    <video
+                  
+                    key={selectedLectures?._id || "default-video"}
+                    src={selectedLectures?.videoUrl || "https://videos.pexels.com/video-files/33535071/14259887_1440_2560_30fps.mp4"}
                     controls
+                    autoPlay
                     className="w-full h-full object-cover"
-                  />
+                    />
+                  
+                    
+
+
+                 
+
+
+
+
+
+
+
+                  
                 </div>
                 <h1 className="font-semibold capitalize mt-2 tracking-tight">
-                  Introduction to Node JS
+                  {selectedLectures ? selectedLectures.lectureTitle : "hey this is the subtitle for trial course"}
                 </h1>
                 <hr className="text-zinc-300 mt-2" />
                 <p className="text-md tracking-tight leading-5 mt-3">
@@ -162,13 +290,46 @@ const CourseDetails = () => {
                 </button>
               </div>
             </div>
+            ) : "Loading..."}
+
+
+
+
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <h1 className="text-xl mt-6 font-semibold capitalize ">
               instructor
             </h1>
             <div className="flex items-center gap-4 my-3">
               <div className="w-[6%] bg-zinc-200 h-[11vh] overflow-hidden rounded-full ">
-              <img className="w-full h-full object-cover " src={user.imageUrl || ""} />
+                <img
+                  className="w-full h-full object-cover "
+                  src={user.imageUrl || ""}
+                />
               </div>
               <div>
                 <h1 className="text-xl capitalize font-semibold tracking-tight">

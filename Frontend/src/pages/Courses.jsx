@@ -10,7 +10,6 @@ const Courses = () => {
   const dispatch = useDispatch();
   const { publisheds } = useSelector(store => store.course)
   const { user } = useSelector(store => store.authentication)
-  console.log(user)
   
 
   const coursesData = [
@@ -59,7 +58,7 @@ const Courses = () => {
 
   useEffect(() => {
     publishedCoursesApi()
-    console.log(publisheds)
+    
   }, []);
 
   return (

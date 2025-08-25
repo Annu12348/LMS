@@ -27,7 +27,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className="bg-[#111827] fixed top-0 w-full py-3 md:px-6 px-3 flex items-center justify-between ">
+    <div className="bg-[#111827] fixed top-0 w-full py-3 md:px-6 px-3 flex items-center justify-between z-50 ">
       <Link to="/" className="flex items-center gap-2 md:gap-3">
         <span className="md:text-4xl text-3xl text-[#D1D5DB] ">
           <FaGraduationCap />
