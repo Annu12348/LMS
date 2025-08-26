@@ -7,10 +7,13 @@ import { useSelector } from "react-redux";
 const Dashboard = () => {
   document.title = "LMS | Admin-Dashboard";
   const { user } = useSelector((store) => store.authentication);
+  const { course } = useSelector(store => store.course)
+  const { publisheds } = useSelector(store => store.course)
+  console.log(publisheds.length)
 
   const enrollCoursesData = [
     {
-      enroll: 5,
+      enroll: course.length,
       description: "Total Enrolled Courses",
     },
     {
@@ -22,7 +25,7 @@ const Dashboard = () => {
       description: "Pending Quizzes",
     },
     {
-      enroll: 2,
+      enroll: publisheds.length,
       description: "Purchased Courses",
     },
   ];

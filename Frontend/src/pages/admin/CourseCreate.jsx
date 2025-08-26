@@ -8,7 +8,7 @@ import axios from "axios";
 const CourseCreate = () => {
   document.title = "LMS | Admin-Course | Create";
   const navigate = useNavigate();
-  const [ loading, setLoading ] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
@@ -20,16 +20,14 @@ const CourseCreate = () => {
         { category, subTitle, courseTitle },
         { withCredentials: true }
       );
-      
-      navigate(-1)
-      
+      navigate(-1);
     } catch (error) {
       alert("Course not created");
     }
   };
 
   const createButtonHandleClicked = () => {
-    coursecreate()
+    coursecreate();
     setCategory("");
     setCourseTitle("");
     setSubTitle("");
@@ -85,17 +83,17 @@ const CourseCreate = () => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
-            <option value="">Category</option>
-            <option value="Next Js">Next Js</option>
-            <option value="Data Science">Data Science</option>
-            <option value="Docker">Docker</option>
-            <option value="Phython">Phython</option>
-            <option value="mern_stack">Mern Stack Developer</option>
-            <option value="front-end-developer">Front-End-Developer</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="MongoDB">MongoDB</option>
-            <option value="back-end-developer">Back-End-Developer</option>
-            <option value="HTML">HTML</option>
+              <option value="">Category</option>
+              <option value="Next Js">Next Js</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Docker">Docker</option>
+              <option value="Phython">Phython</option>
+              <option value="mern_stack">Mern Stack Developer</option>
+              <option value="front-end-developer">Front-End-Developer</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="MongoDB">MongoDB</option>
+              <option value="back-end-developer">Back-End-Developer</option>
+              <option value="HTML">HTML</option>
             </select>
           </div>
           <button

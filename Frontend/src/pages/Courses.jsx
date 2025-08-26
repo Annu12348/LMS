@@ -71,36 +71,42 @@ const Courses = () => {
           you're a beginner or an expert, we have something for everyone.
         </p>
         <div className="px-5 py-9 w-full  flex gap-8 justify-center flex-wrap items-center min-h-[80vh]  ">
-          {publisheds.map((courses) => {
-            return (
-              <div
-                key={courses._id}
-                className=" bg-white  md:w-[55vh] rounded-lg  shadow"
-              >
-                <div className="w-[55vh] bg-white h-[28vh] overflow-hidden rounded-t-lg ">
-                  <img
-                    className="w-full h-full object-fit-cover  "
-                    src={courses.imageCourseUrl}
-                    alt="show images"
-                  />
+          {publisheds && publisheds.length > 0 ? (
+            publisheds.map((courses) => {
+              return (
+                <div
+                  key={courses._id}
+                  className=" bg-white  md:w-[55vh] rounded-lg  shadow"
+                >
+                  <div className="w-[55vh] bg-white h-[28vh] overflow-hidden rounded-t-lg ">
+                    <img
+                      className="w-full h-full object-fit-cover  "
+                      src={courses.imageCourseUrl}
+                      alt="show images"
+                    />
+                  </div>
+                  <div className="px-3 py-4">
+                    <h1 className="text-md tracking-tight font-semibold leading-none ">
+                      {courses.courseTitle}
+                    </h1>
+                    <h1 className="text-sm tracking-tight mt-4 mb-2 leading-none ">
+                      {courses.description}
+                    </h1>
+                    <Link
+                      to={user ? `/courses/${courses._id}` : "/login"}
+                      className="mt-3 block w-fit bg-black text-white px-4 py-2 rounded shadow"
+                    >
+                      Learn more
+                    </Link>
+                  </div>
                 </div>
-                <div className="px-3 py-4">
-                  <h1 className="text-md tracking-tight font-semibold leading-none ">
-                    {courses.courseTitle}
-                  </h1>
-                  <h1 className="text-sm tracking-tight mt-4 mb-2 leading-none ">
-                    {courses.description}
-                  </h1>
-                  <Link
-                    to={user ? `/courses/${courses._id}` : "/login"}
-                    className="mt-3 block w-fit bg-black text-white px-4 py-2 rounded shadow"
-                  >
-                    Learn more
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <p className="text-xl font-semibold text-zinc-400 capitalize ">
+              no courses found
+            </p>
+          )}
         </div>
       </div>
       <Footer />

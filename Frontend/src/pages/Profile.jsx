@@ -6,27 +6,9 @@ import { useSelector } from "react-redux";
 
 const Profile = () => {
   const { user } = useSelector((store) => store.authentication);
-  const profileData = [
-    {
-      image:
-        "https://lms-website-wdnh.onrender.com/assets/ReactBasics-5gGkOCL8.jpg",
-      title: "React Basics",
-      description:
-        "Learn the fundamentals of React, including components, state, and props.",
-    },
-    {
-      image: "https://lms-website-wdnh.onrender.com/assets/JS-CszWzamA.jpg",
-      title: "Advanced JavaScript",
-      description:
-        "Dive deeper into JavaScript concepts like closures, async/await, and more.",
-    },
-    {
-      image: "https://lms-website-wdnh.onrender.com/assets/Css-CXbCeN5j.jpg",
-      title: "CSS for Designers",
-      description:
-        "Master the art of creating beautiful, responsive designs using CSS.",
-    },
-  ];
+  const { publisheds } = useSelector((store) => store.course);
+  console.log(publisheds);
+
   return (
     <div className="w-full min-h-screen bg-zinc-200 ">
       <Navigation />
@@ -53,7 +35,8 @@ const Profile = () => {
               <span className="font-bold capitalize">role : </span> {user.role}
             </h1>
             <h1 className="text-center md:text-left">
-              <span className="font-bold capitalize">bio : </span> {user.description || "Add your bio"}
+              <span className="font-bold capitalize">bio : </span>{" "}
+              {user.description || "Add your bio"}
             </h1>
             <Link to="/profile/editprofile">
               <button className="px-5 md:ml-0 ml-24 capitalize font-semibold text-white py-2 mt-3 rounded shadow bg-green-500 ">
@@ -70,31 +53,37 @@ const Profile = () => {
             Your Enrolled Courses
           </h1>
           <div className="w-full py-2 flex gap-13 mt-3 items-center justify-center flex-wrap">
-            {profileData.map((profile, index) => (
-              <div
-                key={index}
-                className="border-1 border-white rounded w-[45vh]  overflow-hidden   shadow "
-              >
-                <div className="bg-white w-full h-[23vh] rounded ">
-                  <img
-                    className="object-cover w-full h-full"
-                    src={profile.image}
-                    alt="image show"
-                  />
+            {publisheds && publisheds.length > 0 ? (
+              publisheds.map((profile) => (
+                <div
+                  key={profile._id}
+                  className="border-1 border-white rounded w-[45vh]  overflow-hidden   shadow "
+                >
+                  <div className="bg-white w-full h-[23vh] rounded ">
+                    <img
+                      className="object-cover w-full h-full"
+                      src={profile?.imageCourseUrl || ""}
+                      alt="image show"
+                    />
+                  </div>
+                  <div className="py-2 px-2 pb-4">
+                    <h1 className="font-bold text-xl capitalize">
+                      {profile?.courseTitle || ""}
+                    </h1>
+                    <p className="text-sm leading-none font-serif mt-2">
+                      {profile.description}
+                    </p>
+                    <Link to={`/courses/${profile._id}`} className="px-3 block w-fit py-2 capitalize font-semibold shadow bg-emerald-800 text-white mt-3 rounded">
+                      view course
+                    </Link>
+                  </div>
                 </div>
-                <div className="py-2 px-2 pb-4">
-                  <h1 className="font-bold text-xl capitalize">
-                    {profile.title}
-                  </h1>
-                  <p className="text-sm leading-none font-serif mt-2">
-                    {profile.description}
-                  </p>
-                  <button className="px-3 py-2 capitalize font-semibold shadow bg-emerald-800 text-white mt-3 rounded">
-                    view course
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-xl font-semibold text-zinc-400 capitalize ">
+                no courses found
+              </p>
+            )}
           </div>
         </div>
       </div>
