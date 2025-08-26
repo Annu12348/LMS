@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   const enrollCoursesData = [
     {
-      enroll: course.length,
+      enroll: course ? course.length : 0,
       description: "Total Enrolled Courses",
     },
     {
