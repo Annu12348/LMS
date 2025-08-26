@@ -18,7 +18,7 @@ const Course = () => {
 
   const getCreateCourse = async () => {
     try {
-      const res = await axios.get("${import.meta.env.VITE_API_URL}/course/fetchs", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/course/fetchs`, {
         withCredentials: true,
       });
       dispatch(setCourse(res.data.course));
