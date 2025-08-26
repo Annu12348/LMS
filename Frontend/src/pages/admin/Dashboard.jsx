@@ -25,7 +25,7 @@ const Dashboard = () => {
       description: "Pending Quizzes",
     },
     {
-      enroll: publisheds.length,
+      enroll: publisheds ? publisheds.length : 0,
       description: "Purchased Courses",
     },
   ];
