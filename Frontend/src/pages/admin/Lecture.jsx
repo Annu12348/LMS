@@ -19,7 +19,7 @@ const Lecture = () => {
     const postcreateapi = async () => {
       try {
         const res = await axios.post(
-          `http://localhost:3000/course/${courseId}/lecture/create`,
+          `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/create`,
           lecturs,
           { withCredentials: true }
         );
@@ -37,7 +37,7 @@ const Lecture = () => {
   const getfetchapi = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/course/${courseId}/lecture/read`,
+        `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/read`,
         { withCredentials: true }
       );
       dispatch(setLecture(response.data.lectures));

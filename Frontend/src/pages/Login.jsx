@@ -17,10 +17,11 @@ const Login = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     
+    console.log(import.meta.env.VITE_API_URL)
 
     const postlogin = () => {
       axios
-        .post("http://localhost:3000/auth/login", users, {
+        .post(`${import.meta.env.VITE_API_URL}/auth/login`, users, {
           withCredentials: true,
         })
         .then((response) => {

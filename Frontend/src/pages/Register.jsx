@@ -27,7 +27,7 @@ const Register = () => {
 
 
     const postRegister = () => {
-      axios.post("http://localhost:3000/auth/register", input, {
+      axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, input, {
         withCredentials: true,
       })
         .then((response) => {

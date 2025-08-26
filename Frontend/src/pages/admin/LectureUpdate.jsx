@@ -63,7 +63,7 @@ const LectureUpdate = () => {
 
       const upadeLectureCourseApi = async () => {
         const respons = await axios.put(
-          `http://localhost:3000/course/${courseId}/lecture/${lectureId}`,
+          `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/${lectureId}`,
           formData,
           { withCredentials: true }
         );

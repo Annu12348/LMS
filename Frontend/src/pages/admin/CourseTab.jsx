@@ -13,7 +13,7 @@ const CourseTab = () => {
 
   const getcourseById = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/course/${id}`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/course/${id}`, {
         withCredentials: true,
       });
       dispatch(setSingleCourse(response.data.course));
@@ -44,7 +44,7 @@ const CourseTab = () => {
     const putadminCourseUpdate = async () => {
       try {
         const res = await axios.put(
-          `http://localhost:3000/course/${id}`,
+          `${import.meta.env.VITE_API_URL}/course/${id}`,
           formData,
           {
             withCredentials: true,
@@ -62,7 +62,7 @@ const CourseTab = () => {
     try {
       const courseDeleteApi = async () => {
         const resposes = await axios.delete(
-          `http://localhost:3000/course/${id}`,
+          `${import.meta.env.VITE_API_URL}/course/${id}`,
           { withCredentials: true }
         );
 
@@ -78,7 +78,7 @@ const CourseTab = () => {
     try {
       const toggelIspublishedCourseApi = async () => {
         const res = await axios.patch(
-          `http://localhost:3000/course/${id}`,
+          `${import.meta.env.VITE_API_URL}/course/${id}`,
           {},
           {
             withCredentials: true,

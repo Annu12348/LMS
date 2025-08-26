@@ -41,7 +41,7 @@ const EditProfile = () => {
     const getUpdated = async () => {
       try {
         const response = await axios.put(
-          `http://localhost:3000/auth/update/${user.id}`,
+          `${import.meta.env.VITE_API_URL}/auth/update/${user.id}`,
           formData,
           {
             withCredentials: true,

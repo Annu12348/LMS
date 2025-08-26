@@ -25,7 +25,7 @@ const CourseDetails = () => {
   const fetchLectures = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/course/${courseId}/lecture/read`,
+        `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/read`,
         { withCredentials: true }
       );
 

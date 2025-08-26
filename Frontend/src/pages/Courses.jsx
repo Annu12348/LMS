@@ -46,7 +46,7 @@ const Courses = () => {
 
   const publishedCoursesApi = async () => {
     try {
-      const respons = await axios.get("http://localhost:3000/course/publish", {
+      const respons = await axios.get(`${import.meta.env.VITE_API_URL}/course/publish`, {
         withCredentials: true,
       });
       dispatch(setPublisheds(respons.data.course));

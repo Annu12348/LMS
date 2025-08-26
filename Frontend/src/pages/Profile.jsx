@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 const Profile = () => {
   const { user } = useSelector((store) => store.authentication);
   const { publisheds } = useSelector((store) => store.course);
-  console.log(publisheds);
 
   return (
     <div className="w-full min-h-screen bg-zinc-200 ">
