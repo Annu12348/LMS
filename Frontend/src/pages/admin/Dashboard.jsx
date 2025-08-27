@@ -9,7 +9,6 @@ const Dashboard = () => {
   const { user } = useSelector((store) => store.authentication);
   const { course } = useSelector(store => store.course)
   const { publisheds } = useSelector(store => store.course)
-  console.log(publisheds.length)
 
   const enrollCoursesData = [
     {

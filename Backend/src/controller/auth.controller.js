@@ -7,7 +7,6 @@ import { uploadFile } from "../service/storage.service.js";
 
 export const registerUser = async (req, res) => {
   try {
-    
     const { fullname, email, password, role } = req.body;
 
     const userExists = await findOneUser({ $or: [{ fullname }, { email }] });
@@ -28,7 +27,13 @@ export const registerUser = async (req, res) => {
     });
 
     const token = jwt.sign({ id: user._id }, config.JWT_SCRETE_KEY);
-    res.cookie("token", token);
+    const isProduction = process.env.NODE_ENV === "production";
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: isProduction,            //prod = true, local = false
+      sameSite: isProduction ? "none" : "lax",                 //prod = none, local = lax
+      path: '/'
+    });
 
     res.status(201).json({
       message: "User registered successfully",
@@ -75,7 +80,13 @@ export const LoginUser = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, config.JWT_SCRETE_KEY);
 
-    res.cookie("token", token);
+    const isProduction = process.env.NODE_ENV = "production"
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      path: "/"
+    });
 
     res.status(200).json({
       message: "User login successful",
@@ -100,7 +111,13 @@ export const LoginUser = async (req, res) => {
 
 export const logoutUser = async (req, res) => {
   try {
-    res.clearCookie("token");
+    const isProduction = process.env.NODE_ENV = "production"
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
+      path: "/"
+    });
 
     res.status(200).json({
       message: "logout user",
@@ -122,7 +139,6 @@ export const updateUser = async (req, res) => {
       });
     }
 
-  
     const imagefile = await uploadFile(req.file.buffer, req.file.originalname);
     const imageURL = imagefile.url;
 
@@ -135,7 +151,7 @@ export const updateUser = async (req, res) => {
           fullname,
           description,
           email,
-          imageUrl: imageURL
+          imageUrl: imageURL,
         },
       },
       { new: true }
