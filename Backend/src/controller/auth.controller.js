@@ -30,8 +30,8 @@ export const registerUser = async (req, res) => {
     const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction,            //prod = true, local = false
-      sameSite: isProduction ? "none" : "lax",                 //prod = none, local = lax
+      secure: isProduction ? true : false,            //prod = true, local = false
+      sameSite: "none",                 //prod = none, local = lax
       path: '/'
     });
 
