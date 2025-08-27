@@ -83,9 +83,9 @@ export const LoginUser = async (req, res) => {
     const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
-      path: "/"
+      secure: isProduction ? true : false,            //prod = true, local = false
+      sameSite: "none",                 //prod = none, local = lax
+      path: '/'
     });
 
     res.status(200).json({
@@ -114,9 +114,9 @@ export const logoutUser = async (req, res) => {
     const isProduction = process.env.NODE_ENV === "production";
     res.clearCookie("token", {
       httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
-      path: "/"
+      secure: isProduction ? true : false,            //prod = true, local = false
+      sameSite: "none",                 //prod = none, local = lax
+      path: '/'
     });
 
     res.status(200).json({
