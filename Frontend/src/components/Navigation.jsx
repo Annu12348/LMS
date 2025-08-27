@@ -33,7 +33,7 @@ const Navigation = () => {
           <FaGraduationCap />
         </span>
         <h1 className="bg-gradient-to-t from-red-900 to-blue-500 bg-clip-text text-transparent md:text-2xl   font-semibold ">
-          Sheriyans Coding School
+          AnnuSingh
         </h1>
       </Link>
       <div className="md:flex items-center gap-5 hidden">
