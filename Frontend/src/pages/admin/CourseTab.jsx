@@ -107,7 +107,7 @@ const CourseTab = () => {
             onClick={toggelOnClickedHandler}
             className="bg-black px-5 py-2 cursor-pointer rounded  capitalize font-semibold text-white"
           >
-            {singleCourse.isPublished ? "Published" : "unPublished"}
+            {singleCourse?.isPublished ? "Published" : "unPublished"}
           </button>
           <button
             onClick={onClickHandler}
