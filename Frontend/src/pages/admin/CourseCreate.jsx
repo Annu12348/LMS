@@ -16,7 +16,7 @@ const CourseCreate = () => {
   const coursecreate = async () => {
     try {
       const response = await axios.post(
-        "${import.meta.env.VITE_API_URL}/course/courses",
+        `${import.meta.env.VITE_API_URL}/course/courses`,
         { category, subTitle, courseTitle },
         { withCredentials: true }
       );
