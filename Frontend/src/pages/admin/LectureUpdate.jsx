@@ -35,7 +35,7 @@ const LectureUpdate = () => {
   const SinglelLectureCoursesApi = async () => {
     try {
       const responsess = await axios.get(
-        `http://localhost:3000/course/${courseId}/lecture/${lectureId}`,
+        `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/${lectureId}`,
         { withCredentials: true }
       );
       dispatch(setSingleLectureCourse(responsess.data.lecture));
