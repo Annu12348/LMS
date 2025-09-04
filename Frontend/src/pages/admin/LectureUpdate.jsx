@@ -104,7 +104,7 @@ const LectureUpdate = () => {
               <button
                 className="mt-2 bg-black cursor-pointer px-4 py-3 rounded shadow capitalize font-semibold text-white tracking-tight leading-none"
               >
-                {SingleLectureCourse.ispreviewFree ? "paid lecture" : "free lecture"}
+                {SingleLectureCourse?.ispreviewFree ? "paid lecture" : "free lecture"}
               </button>
               <button
                 onClick={onClickHandler}
