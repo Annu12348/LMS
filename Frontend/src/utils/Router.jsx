@@ -13,6 +13,7 @@ import UpdateCourse from "../pages/admin/UpdateCourse";
 import Lecture from "../pages/admin/Lecture";
 import LectureUpdate from "../pages/admin/LectureUpdate";
 import CourseDetails from "../pages/CourseDetails";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const Router = () => {
   return (
@@ -28,7 +29,10 @@ const Router = () => {
         <Route path="/admin/course/create" element={<CourseCreate />} />
         <Route path="/admin/course/:courseId" element={<UpdateCourse />} />
         <Route path="/admin/course/:courseId/lecture" element={<Lecture />} />
-        <Route path="/admin/course/:courseId/lecture/:lectureId" element={<LectureUpdate />} />
+        <Route
+          path="/admin/course/:courseId/lecture/:lectureId"
+          element={<LectureUpdate />}
+        />
         <Route path="/profile" element={<Profile />}>
           <Route path="/profile/:id" element={<EditProfile />} />
         </Route>

@@ -60,7 +60,7 @@ const Courses = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-[91.4vh]  bg-[#e8ecf3]">
+    <div className="w-full min-h-[91.4vh] bg-[#e8ecf3]  ">
       <Navigation />
       <div className="w-full  mt-[6vh] md:mt-[8.6vh] min-h-[91.4vh] py-9 flex flex-col gap-3 items-center px-4   md:px-6 ">
         <h1 className="text-3xl tracking-tight leading-none font-semibold">
@@ -70,15 +70,15 @@ const Courses = () => {
           Explore our curated courses to boost your skills and career. Whether
           you're a beginner or an expert, we have something for everyone.
         </p>
-        <div className="px-5 py-9 w-full  flex gap-8 justify-center flex-wrap items-center min-h-[80vh]  ">
+        <div className="px-5 py-9 w-full  flex gap-8  justify-center flex-wrap items-center min-h-[80vh]  ">
           {publisheds && publisheds.length > 0 ? (
             publisheds.map((courses) => {
               return (
                 <div
                   key={courses._id}
-                  className=" bg-white  md:w-[55vh] rounded-lg  shadow"
+                  className=" bg-white w-[50vh]     md:w-[55vh]  rounded-lg  shadow"
                 >
-                  <div className="w-[55vh] bg-white h-[28vh] overflow-hidden rounded-t-lg ">
+                  <div className="md:w-[55vh] w-[50vh] bg-white h-[28vh] overflow-hidden rounded-t-lg ">
                     <img
                       className="w-full h-full object-fit-cover  "
                       src={courses.imageCourseUrl}
@@ -115,3 +115,5 @@ const Courses = () => {
 };
 
 export default Courses;
+
+//bg-[#e8ecf3]
