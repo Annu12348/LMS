@@ -4,45 +4,12 @@ import Footer from "../components/Footer";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setPublisheds } from "../reduxtoolkit/reducer/CourseSlice";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Courses = () => {
   const dispatch = useDispatch();
   const { publisheds } = useSelector((store) => store.course);
   const { user } = useSelector((store) => store.authentication);
-
-  const coursesData = [
-    {
-      imageUrl:
-        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736314212/jfpghsox60pc7g7d6rgb.png",
-      title: "MongoDb for Experts",
-      description: "Hey i am subtitle of mongodb tutorial",
-    },
-    {
-      imageUrl:
-        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736318194/gdbbqendirhfmu9j8y5o.png",
-      title: "Error Debugging fixed",
-      description: "this is the subtitle for error debugging fixing course",
-    },
-    {
-      imageUrl:
-        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736342831/g0tsjh20grikv3elufwz.jpg",
-      title: "HTML Full Course For Beginners",
-      description: "Hey this is the subtitle for the html course",
-    },
-    {
-      imageUrl:
-        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736407191/l1gq2ktijx27krd5gwsg.jpg",
-      title: "Node Js Tutorial",
-      description: "hey this is the subtitle for trial course",
-    },
-    {
-      imageUrl:
-        "https://res.cloudinary.com/rohitsinghcloud/image/upload/v1736408421/vdb6ubcbyzfw2ptaimiu.png",
-      title: "Express Js Tutorial",
-      description: "hey this is the subtitle for express tutorial course",
-    },
-  ];
 
   const publishedCoursesApi = async () => {
     try {
@@ -51,7 +18,7 @@ const Courses = () => {
       });
       dispatch(setPublisheds(respons.data.course));
     } catch (error) {
-      alert("published not working");
+      console.log(error);
     }
   };
 

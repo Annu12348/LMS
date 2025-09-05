@@ -28,7 +28,7 @@ const Lecture = () => {
         setLecturs({ lectureTitle: "" });
         await getfetchapi();
       } catch (error) {
-        alert("no create lecture course");
+        console.log(error);
       }
     };
     postcreateapi();
@@ -42,7 +42,7 @@ const Lecture = () => {
       );
       dispatch(setLecture(response.data.lectures));
     } catch (error) {
-      alert("no fetch data");
+      console.log(error);
     }
   };
   useEffect(() => {

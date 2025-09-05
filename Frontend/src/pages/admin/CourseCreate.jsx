@@ -22,7 +22,7 @@ const CourseCreate = () => {
       );
       navigate(-1);
     } catch (error) {
-      alert("Course not created");
+      console.log(error);
     }
   };
 

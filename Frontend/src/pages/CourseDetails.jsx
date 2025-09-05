@@ -20,7 +20,6 @@ const CourseDetails = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedLecturesId = searchParams.get("lecture");
-  // console.log(selectedLecturesId)
 
   const fetchLectures = async () => {
     try {
@@ -28,20 +27,14 @@ const CourseDetails = () => {
         `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/read`,
         { withCredentials: true }
       );
-
-      console.log(response);
-
       setLecturess(response.data.lectures || []);
     } catch (error) {
-      alert("Lecture not fetched");
+      console.log(error);
     }
   };
 
   useEffect(() => {
     fetchLectures();
-
-    console.log(lecturess);
-    // eslint-disable-next-line
   }, [courseId]);
 
   useEffect(() => {

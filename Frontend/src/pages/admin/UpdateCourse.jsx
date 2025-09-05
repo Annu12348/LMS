@@ -11,9 +11,6 @@ const UpdateCourse = () => {
   const { user } = useSelector((store) => store.authentication);
   const params = useParams()
   const courseid = params.courseId
-  
-
-  
   return (
     <>
       <div className="w-full min-h-screen  flex   overflow-y-auto overflow-x-hidden">

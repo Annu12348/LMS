@@ -23,13 +23,12 @@ const Course = () => {
       });
       dispatch(setCourse(res.data.course));
     } catch (error) {
-      alert("No courses created");
+      console.log(error);
     }
   };
 
   useEffect(() => {
     getCreateCourse();
-    // eslint-disable-next-line
   }, []);
 
   return (

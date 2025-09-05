@@ -18,7 +18,7 @@ const CourseTab = () => {
       });
       dispatch(setSingleCourse(response.data.course));
     } catch (error) {
-      alert("No single courses");
+      console.log(error);
     }
   };
 
@@ -52,7 +52,7 @@ const CourseTab = () => {
         );
         navigate(-1);
       } catch (error) {
-        alert("update admin course data not");
+        console.log(error);
       }
     };
     putadminCourseUpdate();

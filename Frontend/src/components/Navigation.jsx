@@ -22,7 +22,7 @@ const Navigation = () => {
           dispatch(setUser(null));
         });
     } catch (error) {
-      alert("logout");
+      console.error(error)
     }
   };
 

@@ -28,7 +28,7 @@ const LectureUpdate = () => {
       };
       lectureDeletedApi();
     } catch (error) {
-      alert("deleted not lecture courses");
+      console.log(error);
     }
   };
 
@@ -40,7 +40,7 @@ const LectureUpdate = () => {
       );
       dispatch(setSingleLectureCourse(responsess.data.lecture));
     } catch (error) {
-      alert("single not lecture courses");
+      console.log(error);
     }
   };
 
@@ -71,7 +71,7 @@ const LectureUpdate = () => {
       };
       upadeLectureCourseApi();
     } catch (error) {
-      alert("update not lecture courses");
+      console.log(error);
     }
   };
 

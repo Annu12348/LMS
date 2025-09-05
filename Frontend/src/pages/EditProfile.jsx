@@ -53,7 +53,6 @@ const EditProfile = () => {
         navigate(-1);
       } catch (error) {
         console.error(error);
-        alert("repeatation");
       }
     };
 
@@ -104,7 +103,6 @@ const EditProfile = () => {
               onChange={handleChange}
             />
           </div>
-
 
           <div className="w-full flex gap-3 items-center mt-2 ">
             <label className="text-md capitalize font-semibold tracking-tight">

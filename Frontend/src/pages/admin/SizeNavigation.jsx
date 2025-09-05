@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { AiTwotoneInteraction } from "react-icons/ai";
 
 const SizeNavigation = () => {
   return (

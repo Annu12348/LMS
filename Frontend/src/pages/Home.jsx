@@ -6,7 +6,7 @@ import { FaUserAlt } from "react-icons/fa";
 import Courses from "./Courses";
 
 const Home = () => {
-  document.title = "LMS | HomePage";
+  document.title = "LMS | Home";
   return (
     <>
       <div className="w-full h-[91.4vh] bg-[#1E293B]">

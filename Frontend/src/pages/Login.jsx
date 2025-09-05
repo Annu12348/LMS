@@ -16,8 +16,6 @@ const Login = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    
-    console.log(import.meta.env.VITE_API_URL)
 
     const postlogin = () => {
       axios
@@ -26,11 +24,10 @@ const Login = () => {
         })
         .then((response) => {
           navigate("/");
-          
           dispatch(setUser(response.data.user))
         })
         .catch((error) => {
-          alert("Registration failed. Please try again.");
+          console.log(error);
         });
     };
 

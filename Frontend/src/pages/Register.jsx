@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Navigation from "../components/Navigation";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import axios from "axios"
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../reduxtoolkit/reducer/createSlice";
 
 const Register = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [input, setInput] = useState({
     fullname: "",
     email: "",
@@ -23,26 +23,23 @@ const Register = () => {
       email: "",
       password: "",
       role: "",
-    })
-
+    });
 
     const postRegister = () => {
-      axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, input, {
-        withCredentials: true,
-      })
+      axios
+        .post(`${import.meta.env.VITE_API_URL}/auth/register`, input, {
+          withCredentials: true,
+        })
         .then((response) => {
-          navigate("/")
-          console.log(response.data)
-          dispatch(setUser(response.data.user))
+          navigate("/");
+          dispatch(setUser(response.data.user));
         })
         .catch((error) => {
-          alert("Registration failed. Please try again.");
+          console.log(error);
         });
-    }
+    };
 
-  
-      postRegister()
-  
+    postRegister();
   };
   return (
     <div className="w-full min-h-[91.4vh] bg-[#F3F4F6]">
@@ -82,7 +79,9 @@ const Register = () => {
                   required
                   name="email"
                   value={input.email}
-                  onChange={(e) => setInput({ ...input, email: e.target.value })}
+                  onChange={(e) =>
+                    setInput({ ...input, email: e.target.value })
+                  }
                 />
               </div>
               <div className="flex flex-col mt-2 ">
@@ -109,7 +108,9 @@ const Register = () => {
                     name="role"
                     value="Student"
                     checked={input.role === "Student"}
-                    onChange={(e) => setInput({ ...input, role: e.target.value })}
+                    onChange={(e) =>
+                      setInput({ ...input, role: e.target.value })
+                    }
                   />
                   Student
                 </label>
@@ -120,7 +121,9 @@ const Register = () => {
                     name="role"
                     value="Instructor"
                     checked={input.role === "Instructor"}
-                    onChange={(e) => setInput({ ...input, role: e.target.value })}
+                    onChange={(e) =>
+                      setInput({ ...input, role: e.target.value })
+                    }
                   />
                   Instructor
                 </label>
