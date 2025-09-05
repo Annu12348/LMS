@@ -75,10 +75,10 @@ const Courses = () => {
             publisheds.map((courses) => {
               return (
                 <div
-                  key={courses._id}
-                  className=" bg-white w-[50vh]     md:w-[55vh]  rounded-lg  shadow"
+                     key={courses._id}
+                  className=" bg-white w-[48vh]     md:w-[55vh]  rounded-lg  shadow"
                 >
-                  <div className="md:w-[55vh] w-[50vh] bg-white h-[28vh] overflow-hidden rounded-t-lg ">
+                  <div className="md:w-[55vh] w-[48vh] bg-white h-[28vh] overflow-hidden rounded-t-lg ">
                     <img
                       className="w-full h-full object-fit-cover  "
                       src={courses.imageCourseUrl}
