@@ -27,7 +27,7 @@ const Home = () => {
                 type="text"
                 placeholder="search your courses here..."
               />
-              <h1 className="flex items-center bg-blue-500 rounded h-full px-5 text-[#d1d5db] font-semibold capitalize text-xl gap-2">
+              <h1 className="md:flex hidden items-center bg-blue-500 rounded h-full px-5 text-[#d1d5db] font-semibold capitalize text-xl gap-2">
                 search
                 <span className="text-2xl">
                   <CiSearch />
