@@ -15,26 +15,101 @@ import LectureUpdate from "../pages/admin/LectureUpdate";
 import CourseDetails from "../pages/CourseDetails";
 import ProtectedRoute from "../components/ProtectedRoute";
 
+
 const Router = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/:courseId" element={<CourseDetails />} />
+        <Route
+          path="/"
+          element={
+            
+              <Home />
+            
+          }
+        />
+        <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <Courses />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/courses/:courseId"
+          element={
+            <ProtectedRoute>
+              <CourseDetails />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/course" element={<Course />} />
-        <Route path="/admin/course/create" element={<CourseCreate />} />
-        <Route path="/admin/course/:courseId" element={<UpdateCourse />} />
-        <Route path="/admin/course/:courseId/lecture" element={<Lecture />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/course"
+          element={
+            <ProtectedRoute>
+              <Course />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/course/create"
+          element={
+            <ProtectedRoute>
+              <CourseCreate />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/course/:courseId"
+          element={
+            <ProtectedRoute>
+              <UpdateCourse />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/course/:courseId/lecture"
+          element={
+            <ProtectedRoute>
+              <Lecture />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/course/:courseId/lecture/:lectureId"
-          element={<LectureUpdate />}
+          element={
+            <ProtectedRoute>
+              <LectureUpdate />
+            </ProtectedRoute>
+          }
         />
-        <Route path="/profile" element={<Profile />}>
-          <Route path="/profile/:id" element={<EditProfile />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        >
+          <Route
+            path="/profile/:id"
+            element={
+              <ProtectedRoute>
+                <EditProfile />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </>

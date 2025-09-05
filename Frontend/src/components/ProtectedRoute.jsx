@@ -1,18 +1,37 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import cookies from "js-cookie";
-import { Navigate } from "react-router-dom";
-import { MdGeneratingTokens } from "react-icons/md";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useSelector((store) => store.authentication);
-  const token = cookies.get("token");
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (!token || !user) {
-    return <Navigate to="/login" replace />;
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
+          withCredentials: true
+        });
+        console.log(response.data);
+        setIsAuthenticated(true); // token valid hai
+      } catch (error) {
+        console.error(error);
+        setIsAuthenticated(false);
+        navigate("/login"); // token invalid -> login page
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>; // या spinner दिखा सकते हो
   }
 
-  return children;
+  return isAuthenticated ? children : null;
 };
 
 export default ProtectedRoute;

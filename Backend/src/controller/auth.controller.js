@@ -30,9 +30,9 @@ export const registerUser = async (req, res) => {
     const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction ? true : false,            //prod = true, local = false
-      sameSite: "none",                 //prod = none, local = lax
-      path: '/'
+      secure: isProduction ? true : false, //prod = true, local = false
+      sameSite: "none", //prod = none, local = lax
+      path: "/",
     });
 
     res.status(201).json({
@@ -83,9 +83,9 @@ export const LoginUser = async (req, res) => {
     const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction ? true : false,            //prod = true, local = false
-      sameSite: "none",                 //prod = none, local = lax
-      path: '/'
+      secure: isProduction ? true : false, //prod = true, local = false
+      sameSite: "none", //prod = none, local = lax
+      path: "/",
     });
 
     res.status(200).json({
@@ -114,9 +114,9 @@ export const logoutUser = async (req, res) => {
     const isProduction = process.env.NODE_ENV === "production";
     res.clearCookie("token", {
       httpOnly: true,
-      secure: isProduction ? true : false,            //prod = true, local = false
-      sameSite: "none",                 //prod = none, local = lax
-      path: '/'
+      secure: isProduction ? true : false, //prod = true, local = false
+      sameSite: "none", //prod = none, local = lax
+      path: "/",
     });
 
     res.status(200).json({
@@ -178,5 +178,33 @@ export const updateUser = async (req, res) => {
   } catch (error) {
     console.error("updateUser error:", error);
     res.status(500).json({ message: "Update failed. Try again." });
+  }
+};
+
+export const me = async (req, res) => {
+  const token = req.cookies.token
+  console.log(token)
+
+    if(!token){
+      return res.status(401).json({
+        message: "unauthorized token"
+      })
+    }
+
+  try {
+    
+
+    const decoded = jwt.verify(token, process.env.JWT_SCRETE_KEY);
+    
+
+    res.status(200).json({
+      message: "me routes",
+      id: decoded.userId
+    })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Internal server error. Please try again later.",
+    });
   }
 };
