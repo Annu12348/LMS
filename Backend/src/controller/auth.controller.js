@@ -183,7 +183,7 @@ export const updateUser = async (req, res) => {
 
 export const me = async (req, res) => {
   const token = req.cookies.token
-  console.log(token)
+  
 
     if(!token){
       return res.status(401).json({
@@ -199,10 +199,10 @@ export const me = async (req, res) => {
 
     res.status(200).json({
       message: "me routes",
-      id: decoded.userId
+      id: decoded.id
     })
   } catch (error) {
-    console.error(error);
+   // console.error(error);
     res.status(500).json({
       message: "Internal server error. Please try again later.",
     });

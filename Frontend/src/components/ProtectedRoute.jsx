@@ -1,37 +1,29 @@
-import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import React, { useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const meRoutesget = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/auth/me`,
+        { withCredentials: true }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+      navigate("/login");
+    }
+  };
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
-          withCredentials: true
-        });
-        console.log(response.data);
-        setIsAuthenticated(true); // token valid hai
-      } catch (error) {
-        console.error(error);
-        setIsAuthenticated(false);
-        navigate("/login"); // token invalid -> login page
-      } finally {
-        setLoading(false);
-      }
-    };
+    meRoutesget();
+    // eslint-disable-next-line
+  }, []);
 
-    checkAuth();
-  }, [navigate]);
-
-  if (loading) {
-    return <div>Loading...</div>; // या spinner दिखा सकते हो
-  }
-
-  return isAuthenticated ? children : null;
+  return children;
 };
 
 export default ProtectedRoute;
