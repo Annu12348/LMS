@@ -21,7 +21,7 @@ const LectureUpdate = () => {
     try {
       const lectureDeletedApi = async () => {
         const res = await axios.delete(
-          `http://localhost:3000/course/${courseId}/lecture/${lectureId}`,
+          `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/${lectureId}`,
           { withCredentials: true }
         );
         navigate(-1);
