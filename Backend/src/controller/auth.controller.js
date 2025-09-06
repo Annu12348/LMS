@@ -202,6 +202,9 @@ export const me = async (req, res) => {
       id: decoded.id
     })
   } catch (error) {
+    if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError") {
+      return res.status(401).json({ message: "unauthorized token" });
+    }
    // console.error(error);
     res.status(500).json({
       message: "Internal server error. Please try again later.",

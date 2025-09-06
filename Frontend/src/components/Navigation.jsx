@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../reduxtoolkit/reducer/createSlice";
 import { FiMenu } from "react-icons/fi";
+import  { persistor }  from "../reduxtoolkit/store"
 
 const Navigation = () => {
   const navigate = useNavigate();
@@ -17,9 +18,10 @@ const Navigation = () => {
         .get(`${import.meta.env.VITE_API_URL}/auth/logout`, {
           withCredentials: true,
         })
-        .then((responsive) => {
+        .then( async (responsive) => {
           navigate("/");
           dispatch(setUser(null));
+          await persistor.purge()
         });
     } catch (error) {
       console.error(error)
@@ -79,12 +81,14 @@ const Navigation = () => {
                   }
                 />
               </Link>
+              {user ? (
               <button
                 onClick={logoutHandle}
                 className="text-[#D1D5DB] cursor-pointer bg-red-900 px-5 py-1.5 rounded font-semibold capitalize"
               >
                 logout
               </button>
+              ) : null}
             </>
           )}
         </div>

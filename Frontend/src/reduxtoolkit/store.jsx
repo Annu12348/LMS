@@ -5,6 +5,7 @@ import LectureSlice from "./reducer/LectureSlice"
 import storage from "redux-persist/lib/storage";
 import {
   persistReducer,
+  persistStore,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -37,4 +38,5 @@ const store = configureStore({
     }),
 });
 
+export const persistor = persistStore(store);
 export default store;
