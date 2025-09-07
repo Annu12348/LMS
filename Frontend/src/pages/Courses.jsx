@@ -53,15 +53,15 @@ const Courses = () => {
                     />
                   </div>
                   <div className="px-3 py-4">
-                    <h1 className="text-md tracking-tight font-semibold leading-none ">
+                    <h1 className="text-md capitalize tracking-tight font-semibold leading-none ">
                       {courses.courseTitle}
                     </h1>
-                    <h1 className="text-sm tracking-tight mt-4 mb-2 leading-none ">
+                    <h1 className="text-sm capitalize tracking-tight mt-4 mb-2 leading-none ">
                       {courses.description}
                     </h1>
                     <Link
                       to={user ? `/courses/${courses._id}` : "/login"}
-                      className="mt-3 block w-fit bg-black text-white px-4 py-2 rounded shadow"
+                      className="mt-4 block w-fit bg-black text-white px-4 py-2 rounded shadow"
                     >
                       Learn more
                     </Link>

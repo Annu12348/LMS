@@ -54,13 +54,13 @@ const CourseDetails = () => {
     <>
       <div className="w-full min-h-screen py-3">
         <Navigation />
-        <div className="mt-15  py-10 px-23">
-          <div className="p-5 bg-white rounded ">
+        <div className="md:mt-15  md:py-10 py-11 md:px-23">
+          <div className="md:p-5 p-3 bg-white rounded ">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4 justify-between">
+              <div className="flex items-center md:gap-4 gap-2 justify-between">
                 <Link
                   to="/courses"
-                  className="bg-zinc-200 p-3 leading-none rounded-full shadow hover:bg-zinc-500 inline-block"
+                  className="bg-zinc-200 mt-0.5 p-3 leading-none rounded-full shadow hover:bg-zinc-500 inline-block"
                 >
                   <GoArrowLeft />
                 </Link>
@@ -72,15 +72,16 @@ const CourseDetails = () => {
                 enroll now
               </button>
             </div>
-            <div className="w-full p-1 mt-6 flex gap-9 items-center ">
-              <div className="w-[35%] h-[36vh] rounded shadow bg-amber-200 overflow-hidden">
+
+            <div className="w-full md:p-1 mt-6 md:flex gap-9 items-center ">
+              <div className="md:w-[33%] w-full md:h-[30vh] h-[27vh] rounded shadow bg-amber-200 overflow-hidden">
                 <img
                   className="w-full h-full object-cover object-center"
                   src={courses?.imageCourseUrl || ""}
                   alt="imageCourseUrl"
                 />
               </div>
-              <div className="">
+              <div className="md:mt-0 mt-4">
                 <h1 className="text-md font-semibold capitalize tracking-tight">
                   hey this is the subtitle for trial course
                 </h1>
@@ -137,8 +138,8 @@ const CourseDetails = () => {
             </p>
 
             {lecturess.length > 0 ? (
-              <div className="w-full mt-18 justify-between flex items-start">
-                <div className=" w-[63%] ">
+              <div className="w-full mt-18 justify-between md:flex items-start">
+                <div className=" md:w-[63%] ">
                   <h1 className="text-xl font-semibold tracking-tight">
                     Course Curriculum
                   </h1>
@@ -163,7 +164,7 @@ const CourseDetails = () => {
                     </div>
                   ))}
                 </div>
-                <div className="card w-[33%] p-2 shadow border-1 border-zinc-200 relative z-10 ">
+                <div className="card md:w-[33%] w-full md:mt-0 mt-7 p-2 shadow border-1 border-zinc-200 relative z-10 ">
                   <div className="video w-full h-[35vh]  rounded overflow-hidden bg-amber-200  ">
                     <video
                       key={selectedLectures?._id || "default-video"}
@@ -199,14 +200,14 @@ const CourseDetails = () => {
             <h1 className="text-xl mt-6 font-semibold capitalize ">
               instructor
             </h1>
-            <div className="flex items-center gap-4 my-3">
-              <div className="w-[6%] bg-zinc-200 h-[11vh] overflow-hidden rounded-full ">
+            <div className="flex w-full items-center gap-4 my-3">
+              <div className="w-[29%] md:w-[6%] bg-zinc-200 h-[11vh] overflow-hidden rounded-full ">
                 <img
                   className="w-full h-full object-cover "
                   src={user.imageUrl || ""}
                 />
               </div>
-              <div>
+              <div className="w-full">
                 <h1 className="text-xl capitalize font-semibold tracking-tight">
                   {user?.fullname || ""}
                 </h1>
@@ -221,7 +222,9 @@ const CourseDetails = () => {
           </div>
         </div>
       </div>
-      <Footer />
+    
+        <Footer />
+      
     </>
   );
 };
