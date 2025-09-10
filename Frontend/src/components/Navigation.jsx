@@ -104,26 +104,40 @@ const Navigation = () => {
             )}
           </div>
         </div>
-        <button
-          onClick={handlesclick}
-          className="text-white text-2xl z-60  md:hidden"
-        >
-          {isOpen ? <IoMdClose /> : <FiMenu />}
-        </button>
+
+        {user ? (
+          <button
+            onClick={handlesclick}
+            className="text-white text-2xl z-60  md:hidden"
+          >
+            {isOpen ? <IoMdClose /> : <FiMenu />}
+          </button>
+        ) : (
+          <Link
+            to="/register"
+            className="text-[#D1D5DB] md:hidden   bg-zinc-500 px-5 font-semibold py-1.5 rounded capitalize "
+          >
+            signup
+          </Link>
+        )}
       </div>
-      {isOpen && (
+
+      {user && isOpen && (
         <div
           ref={sidenavRef}
           className="w-[83%] p-7 h-screen z-50 md:hidden  bg-zinc-900 fixed top-0 left-0 rounded-r-2xl "
         >
           <div className="w-full  flex items-center  gap-3 ">
-            <div className="bg-zinc-500 w-[34%] rounded-full h-[13.5vh] overflow-hidden ">
+            <Link
+              to="/profile"
+              className="bg-zinc-500 w-[34%] rounded-full h-[13.5vh] overflow-hidden "
+            >
               <img
                 className="w-full h-full object-cover object-center "
                 src={user.imageUrl}
                 alt="images"
               />
-            </div>
+            </Link>
             <div className="">
               <h1 className="font-semibold text-white capitalize tracking-tight leading-none">
                 hello! {user.fullname}
@@ -145,23 +159,7 @@ const Navigation = () => {
               Course
             </Link>
             <div className=" mt-3 flex flex-col w-fit ">
-              {!user ? (
-                <>
-                  {" "}
-                  <Link
-                    to="/login"
-                    className="text-[#D1D5DB] bg-blue-500 px-5 py-1.5 rounded font-semibold capitalize"
-                  >
-                    login
-                  </Link>
-                  <Link
-                    to="/register"
-                    className="text-[#D1D5DB] bg-zinc-500 px-5 font-semibold py-1.5 rounded capitalize "
-                  >
-                    signup
-                  </Link>
-                </>
-              ) : (
+              {user && (
                 <>
                   {user.role === "Instructor" && (
                     <Link

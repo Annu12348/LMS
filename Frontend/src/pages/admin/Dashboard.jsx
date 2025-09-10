@@ -3,6 +3,7 @@ import SizeNavigation from "./SizeNavigation";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer"
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   document.title = "LMS | Admin-Dashboard";
@@ -30,22 +31,22 @@ const Dashboard = () => {
   ];
   return (
     <>
-    <div className="w-full min-h-screen  flex  overflow-y-auto overflow-x-hidden">
+    <div className="w-full min-h-screen  md:flex  overflow-y-auto overflow-x-hidden">
       <Navigation />
       <SizeNavigation />
-      <div className="w-[81%] h-[10vh]  mt-16 p-5  ">
+      <div className="md:w-[81%] w-full h-[10vh]  md:mt-16 mt-14 md:p-5 p-4  ">
         <div className="w-full p-4 bg-blue-700 rounded-lg">
           <h1 className="text-2xl font-semibold text-white capitalize">
             Welcome back, {user.fullname}!
           </h1>
-          <button className="mt-2 font-semibold capitalize text-blue-500 bg-zinc-50 hover:bg-zinc-200 px-5 py-3 rounded-lg cursor-pointer ">
+          <Link to='/admin/course/create' className="mt-2 block w-fit font-semibold capitalize text-blue-500 bg-zinc-50 hover:bg-zinc-200 px-5 py-3 rounded-lg cursor-pointer ">
             browser new courses
-          </button>
+          </Link>
         </div>
 
-        <div className="w-full flex items-center gap-10 mt-5">
+        <div className="w-full md:flex items-center gap-10 mt-5">
           {enrollCoursesData.map((enrolls, index) => (
-            <div key={index} className="p-2 shadow  w-[24%]  rounded bg-white flex flex-col items-center">
+            <div key={index} className="p-2 shadow  md:w-[24%] w-full md:mt-0 mt-3  rounded bg-white flex flex-col items-center">
               <h1 className="font-semibold text-xl">{enrolls.enroll}</h1>
               <h1 className="font-semibold text-zinc-600">
                 {enrolls.description}
@@ -56,8 +57,8 @@ const Dashboard = () => {
 
         <div className="w-full mt-7">
           <h1 className="text-xl capitalize font-semibold">active courses</h1>
-          <div className="mt-1 flex items-center gap-10">
-            <div className="w-[33%] bg-white py-2.5 px-4 rounded">
+          <div className="mt-1 md:flex items-center gap-10">
+            <div className="md:w-[33%] w-full bg-white py-2.5 px-4 rounded">
               <h1 className="text-xl capitalize tracking-tight font-semibold ">
                 course 1
               </h1>
@@ -68,7 +69,7 @@ const Dashboard = () => {
                 view details{" "}
               </button>
             </div>
-            <div className="w-[33%] bg-white py-2.5 px-4 rounded">
+            <div className="md:w-[33%] w-full mt-3 shadow bg-white py-2.5 px-4 rounded">
               <h1 className="text-xl capitalize tracking-tight font-semibold ">
                 course 2
               </h1>
@@ -79,7 +80,7 @@ const Dashboard = () => {
                 view details{" "}
               </button>
             </div>
-            <div className="w-[33%] bg-white py-2.5 px-4 rounded">
+            <div className="md:w-[33%] w-full mt-4 shadow bg-white py-2.5 px-4 rounded">
               <h1 className="text-xl capitalize tracking-tight font-semibold ">
                 course 3
               </h1>
@@ -93,7 +94,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 md:pb-0 pb-5">
           <h1 className="text-xl capitalize font-semibold">
             upcoming deadlines
           </h1>
@@ -107,9 +108,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      
     </div>
-    <Footer />
+    <div className="hidden md:block  "><Footer /></div>
     </>
   );
 };

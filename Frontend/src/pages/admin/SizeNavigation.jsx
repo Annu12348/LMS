@@ -5,7 +5,7 @@ import { MdOutlineSpaceDashboard } from "react-icons/md";
 
 const SizeNavigation = () => {
   return (
-    <div className="w-[19%] min-h-[98vh]  bg-zinc-700 px-4 py-21 flex flex-col  ">
+    <div className="w-[19%]  hidden min-h-[98vh]  bg-zinc-700 px-4 py-21 md:flex flex-col  ">
       <NavLink
         to="/admin/dashboard"
         className={({ isActive }) =>

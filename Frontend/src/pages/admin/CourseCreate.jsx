@@ -34,14 +34,14 @@ const CourseCreate = () => {
   };
   return (
     <>
-      <div className="w-full min-h-screen flex">
+      <div className="w-full min-h-screen md:flex">
         <Navigation />
         <SizeNavigation />
-        <div className="w-[81%] min-h-[90vh] mt-16 p-9">
+        <div className="md:w-[81%] w-full min-h-[90vh] md:mt-16 mt-10 md:p-9 p-6">
           <h1 className="text-2xl capitalize font-semibold">
             let's add, <span className="text-blue-500">courses</span>
           </h1>
-          <p>
+          <p className="mt-2 md:mt-0">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eius
             necessitatibus fugit vel distinctio architecto, ut ratione rem nobis
             eaque?
