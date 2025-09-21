@@ -47,7 +47,7 @@ const Profile = () => {
 
         <Outlet />
 
-        <div className="py-5 px-6 bg-zinc-100 shadow mt-5 rounded  ">
+        <div className="py-5 px-6  bg-zinc-100 shadow mt-5 rounded  ">
           <h1 className="text-xl capitalize font-bold ">
             Your Enrolled Courses
           </h1>

@@ -53,14 +53,14 @@ const Lecture = () => {
       <div className="w-full min-h-screen  flex  overflow-y-auto overflow-x-hidden">
         <Navigation />
         <SizeNavigation />
-        <div className="w-[81%] min-h-[10vh]  mt-16 p-5  ">
+        <div className="md:w-[81%] w-full min-h-[10vh]  mt-15   md:mt-16 md:p-5 p-3  ">
           <h1 className="text-xl font-semibold capitalize tracking-tight leading-none">
             lets add <span className="text-blue-400">lectures</span>
           </h1>
           <p className="text-md mt-3 ">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eius
-            necessitatibus fugit vel distinctio architecto, ut ratione rem nobis
-            eaque?
+            To create a new lecture, enter the title above and click "create
+            lecture". Below, you can see the list of all lectures for this
+            course.
           </p>
 
           <div className="mt-10 flex flex-col">
@@ -68,7 +68,7 @@ const Lecture = () => {
               title
             </label>
             <input
-              className="mt-2 border-1 w-[90%] px-2 py-2 capitalize rounded border-zinc-300 outline-none text-zinc-500"
+              className="mt-2 border-1 md:w-[90%] w-full px-2 py-2 capitalize rounded border-zinc-300 outline-none text-zinc-500"
               type="text"
               placeholder="your lecture name"
               value={lecturs.lectureTitle}
@@ -77,7 +77,7 @@ const Lecture = () => {
               }
             />
           </div>
-          <div className="mt-7 flex gap-10">
+          <div className="mt-7 w-full items-center justify-between flex gap-10">
             <button className="bg-white px-4 py-4 rounded hover:bg-zinc-100 font-semibold capitalize tracking-tight leading-none ">
               back to course
             </button>
@@ -89,29 +89,29 @@ const Lecture = () => {
             </button>
           </div>
           <div className="mt-7 ">
-            {lecture?.length > 0
-              ? lecture.map((lecture, index) => (
-                  <div
-                    key={lecture._id}
-                    className="px-3 py-3 w-[90%] mt-3 bg-white rounded flex items-center justify-between"
-                  >
-                    <h1 className="text-md font-semibold capitalize leading-none tracking-tight ">
-                      leature - 1 :{" "}
-                      <span className="font-normal">
-                        {lecture.lectureTitle}
-                      </span>
-                    </h1>
+            {lecture?.length > 0 ? (
+              lecture.map((lecture, index) => (
+                <div
+                  key={lecture._id}
+                  className="px-3 py-3 md:w-[90%] w-full mt-3 bg-white rounded flex items-center justify-between"
+                >
+                  <h1 className="text-md font-semibold capitalize leading-none tracking-tight ">
+                    leature - 1 :{" "}
+                    <span className="font-normal">{lecture.lectureTitle}</span>
+                  </h1>
 
-                    <Link
-                      to={`/admin/course/${courseId}/lecture/${lecture._id}`}
-                    >
-                      <span className="text-zinc-600 text-xl">
-                        <TiEdit />
-                      </span>
-                    </Link>
-                  </div>
-                ))
-              : <h1 className="text-md capitalize font-semibold text-zinc-300">no lectures found</h1>}
+                  <Link to={`/admin/course/${courseId}/lecture/${lecture._id}`}>
+                    <span className="text-zinc-600 text-xl">
+                      <TiEdit />
+                    </span>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <h1 className="text-md capitalize font-semibold text-zinc-300">
+                no lectures found
+              </h1>
+            )}
           </div>
         </div>
       </div>

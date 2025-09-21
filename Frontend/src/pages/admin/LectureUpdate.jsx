@@ -21,7 +21,9 @@ const LectureUpdate = () => {
     try {
       const lectureDeletedApi = async () => {
         const res = await axios.delete(
-          `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/${lectureId}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/course/${courseId}/lecture/${lectureId}`,
           { withCredentials: true }
         );
         navigate(-1);
@@ -35,7 +37,9 @@ const LectureUpdate = () => {
   const SinglelLectureCoursesApi = async () => {
     try {
       const responsess = await axios.get(
-        `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/${lectureId}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/course/${courseId}/lecture/${lectureId}`,
         { withCredentials: true }
       );
       dispatch(setSingleLectureCourse(responsess.data.lecture));
@@ -63,7 +67,9 @@ const LectureUpdate = () => {
 
       const upadeLectureCourseApi = async () => {
         const respons = await axios.put(
-          `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/${lectureId}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/course/${courseId}/lecture/${lectureId}`,
           formData,
           { withCredentials: true }
         );
@@ -77,10 +83,10 @@ const LectureUpdate = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen  flex  overflow-y-auto overflow-x-hidden">
+      <div className="w-full min-h-screen   flex  overflow-y-auto overflow-x-hidden">
         <Navigation />
         <SizeNavigation />
-        <div className="w-[81%] min-h-[10vh]  mt-16 p-8  ">
+        <div className="md:w-[81%] w-full min-h-[10vh]   mt-16 md:p-8 p-2  ">
           <div className="flex items-center gap-4 ">
             <Link
               to={`/admin/course/${courseId}/lecture`}
@@ -88,10 +94,12 @@ const LectureUpdate = () => {
             >
               <GoArrowLeft />
             </Link>
-            <h1>update your lecture</h1>
+            <h1 className="text-xl capitalize font-bold italic">
+              update your lecture
+            </h1>
           </div>
-          <div className="bg-white py-4 px-4 mt-10 rounded">
-            <div className="flex items-start justify-between">
+          <div className="bg-white py-4 px-4 md:mt- mt-5 rounded">
+            <div className="md:flex items-start justify-between">
               <div>
                 <h1 className="text-xl font-semibold capitalize tracking-tight leading-none">
                   edit lecture
@@ -101,21 +109,16 @@ const LectureUpdate = () => {
                 </p>
               </div>
               <div className="flex items-center gap-3">
-              <button
-                className="mt-2 bg-black cursor-pointer px-4 py-3 rounded shadow capitalize font-semibold text-white tracking-tight leading-none"
-              >
-                {SingleLectureCourse?.ispreviewFree ? "paid lecture" : "free lecture"}
-              </button>
-              <button
-                onClick={onClickHandler}
-                className="mt-2 bg-red-500 cursor-pointer px-4 py-3 rounded shadow capitalize font-semibold text-white tracking-tight leading-none"
-              >
-                remove lecture
-              </button>
+                <button
+                  onClick={onClickHandler}
+                  className="mt-2 bg-red-500 cursor-pointer px-4  py-3 rounded shadow capitalize font-semibold text-white tracking-tight leading-none"
+                >
+                  remove lecture
+                </button>
               </div>
             </div>
             <div className="flex flex-col mt-5 ">
-              <label className="tect-md font-semibold capitalize tracking-tight leading-none">
+              <label className="tect-md  font-semibold capitalize tracking-tight leading-none">
                 lecture title
               </label>
               <input
@@ -135,10 +138,10 @@ const LectureUpdate = () => {
             </div>
             <div className="flex flex-col mt-3 ">
               <label className="tect-md font-semibold capitalize tracking-tight leading-none">
-                lecture title
+                lecture images
               </label>
               <input
-                className="border-1 outline-none text-zinc-400 capitalize px-2 w-[25%] py-2 mt-1 tracking-tight leading-none rounded border-zinc-200 "
+                className="border-1 w-full outline-none text-zinc-400 capitalize px-2 md:w-[25%] py-2 mt-1 tracking-tight leading-none rounded border-zinc-200 "
                 type="file"
                 accept="video/*"
                 placeholder="Lecture video"
@@ -153,28 +156,28 @@ const LectureUpdate = () => {
               />
             </div>
             <div className="flex mt-2 flex-col w-[28%]">
-              <label className="font-semibold capitalize">isPreviewFree</label>
+              <label className="font-semibold capitalize">Paid or Free</label>
               <select
                 value={
                   SingleLectureCourse?.ispreviewFree === true
-                    ? "true"
+                    ? "free"
                     : SingleLectureCourse?.ispreviewFree === false
-                    ? "false"
+                    ? "paid"
                     : ""
                 }
                 onChange={(e) =>
                   dispatch(
                     setSingleLectureCourse({
                       ...SingleLectureCourse,
-                      ispreviewFree: e.target.value === "true" ? true : false,
+                      ispreviewFree: e.target.value === "free" ? true : false,
                     })
                   )
                 }
-                className="border-1 tracking-tight leading-none border-zinc-300 text-zinc-600 px-3 py-2 rounded outline-none capitalize"
+                className="border-1 tracking-tight leading-none border-zinc-300 text-zinc-600 md:px-3 px-1 font-semibold py-2 rounded outline-none capitalize w-[48.5vh]"
               >
-                <option value="">isPublished</option>
-                <option value="true">true</option>
-                <option value="false">false</option>
+                <option value="">Select Paid or Free</option>
+                <option value="free">Free</option>
+                <option value="paid">Paid</option>
               </select>
             </div>
             <button

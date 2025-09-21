@@ -15,19 +15,11 @@ import LectureUpdate from "../pages/admin/LectureUpdate";
 import CourseDetails from "../pages/CourseDetails";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-
 const Router = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            
-              <Home />
-            
-          }
-        />
+        <Route path="/" element={<Home />} />
         <Route
           path="/courses"
           element={

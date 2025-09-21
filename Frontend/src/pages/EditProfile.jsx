@@ -60,8 +60,8 @@ const EditProfile = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center  justify-center fixed top-0 left-0  ">
-      <div className="w-[60vh] relative flex-col bg-white rounded-lg h-[50vh] shadow p-6 flex items-center justify-cente ">
+    <div className="w-full h-screen   flex items-center   justify-center fixed top-0 left-0  ">
+      <div className="md:w-[60vh] w-[90%] relative  flex-col bg-zinc-50 rounded-lg h-[50vh] shadow p-6 flex items-center justify-cente ">
         <Link
           to="/profile"
           className="text-xl font-semibold right-3 absolute top-3 hover:text-zinc-500"
@@ -75,13 +75,13 @@ const EditProfile = () => {
           Make changes to your profile here.
         </p>
 
-        <form onSubmit={handleSubmit}>
-          <div className="w-full flex gap-3 items-center mt-6 ml-9.5">
+        <form className="w-full p-2" onSubmit={handleSubmit}>
+          <div className="w-full flex gap-3 items-center mt-6  ml-9.5">
             <label className="text-md capitalize font-semibold tracking-tight">
               name
             </label>
             <input
-              className="border-1 capitalize border-zinc-300 outline-none px-2  rounded py-1.5 w-[76%] "
+              className="border-1 capitalize border-zinc-300 outline-none px-2  rounded py-1.5 w-[75%] md:w-[76%] "
               type="text"
               placeholder="name"
               name="name"
@@ -109,7 +109,7 @@ const EditProfile = () => {
               description
             </label>
             <input
-              className="border-1 px-2 rounded border-zinc-300 outline-none py-1.5 w-full"
+              className="border-1 px-2 rounded border-zinc-300 outline-none py-1.5  md:w-full"
               type="text"
               placeholder=""
               name="description"
@@ -131,7 +131,7 @@ const EditProfile = () => {
           </div>
 
           <button
-            className=" py-2 px-5 mt-6 ml-70 rounded cursor-pointer capitalize font-semibold text-white bg-emerald-500"
+            className=" py-2 px-5 mt-2.5 md:mt-6 ml-50 md:ml-70 rounded cursor-pointer capitalize font-semibold text-white bg-emerald-500"
             type="submit"
           >
             update
