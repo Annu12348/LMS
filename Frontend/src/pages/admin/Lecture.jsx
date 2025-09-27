@@ -7,6 +7,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLecture } from "../../reduxtoolkit/reducer/LectureSlice";
+import { toast } from "react-toastify";
 
 const Lecture = () => {
   const params = useParams();
@@ -14,10 +15,12 @@ const Lecture = () => {
   const dispatch = useDispatch();
   const { lecture } = useSelector((store) => store.lecture);
   const [lecturs, setLecturs] = useState({ lectureTitle: "" });
+  const [ loading, setLoading ] = useState(false)
 
   const clickedHandlers = () => {
     const postcreateapi = async () => {
       try {
+        setLoading(true)
         const res = await axios.post(
           `${import.meta.env.VITE_API_URL}/course/${courseId}/lecture/create`,
           lecturs,
@@ -27,8 +30,11 @@ const Lecture = () => {
         setLecturs(res.data.lecture);
         setLecturs({ lectureTitle: "" });
         await getfetchapi();
+        toast.success(res.data.message)
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false)
       }
     };
     postcreateapi();
@@ -77,7 +83,7 @@ const Lecture = () => {
               }
             />
           </div>
-          <div className="mt-7 w-full items-center justify-between flex gap-10">
+          <div className="mt-7 md:w-full items-center  flex gap-10">
             <button className="bg-white px-4 py-4 rounded hover:bg-zinc-100 font-semibold capitalize tracking-tight leading-none ">
               back to course
             </button>

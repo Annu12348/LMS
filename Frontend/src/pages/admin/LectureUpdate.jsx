@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SizeNavigation from "./SizeNavigation";
 import Navigation from "../../components/Navigation";
 import Footer from "../../components/Footer";
@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSingleLectureCourse } from "../../reduxtoolkit/reducer/LectureSlice";
+import { toast } from "react-toastify";
 
 const LectureUpdate = () => {
   document.title = "LMS | Admin-Dashboard | course | lecture | lectureupdate";
@@ -16,6 +17,7 @@ const LectureUpdate = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { SingleLectureCourse } = useSelector((store) => store.lecture);
+  const [loading, setLoading] = useState(false);
 
   const onClickHandler = () => {
     try {
@@ -30,7 +32,13 @@ const LectureUpdate = () => {
       };
       lectureDeletedApi();
     } catch (error) {
-      console.log(error);
+      if (error.res && error.res.data && error.res.data.message) {
+        toast.error(error.res.data.message);
+      } else if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error("something went wrong, please try again later");
+      }
     }
   };
 
@@ -44,7 +52,17 @@ const LectureUpdate = () => {
       );
       dispatch(setSingleLectureCourse(responsess.data.lecture));
     } catch (error) {
-      console.log(error);
+      if (
+        error.responsess &&
+        error.responsess.data &&
+        error.responsess.data.message
+      ) {
+        toast.error(error.responsess.data.message);
+      } else if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong, please try again latter");
+      }
     }
   };
 
@@ -52,7 +70,8 @@ const LectureUpdate = () => {
     SinglelLectureCoursesApi();
   }, [lectureId, courseId]);
 
-  const onClickHandlers = () => {
+  const onClickHandlers = async () => {
+    setLoading(true);
     try {
       const formData = new FormData();
 
@@ -65,19 +84,35 @@ const LectureUpdate = () => {
         formData.append("video", SingleLectureCourse.file);
       }
 
-      const upadeLectureCourseApi = async () => {
+      const upadeLectureCourseApi =  async () => {
         const respons = await axios.put(
           `${
             import.meta.env.VITE_API_URL
           }/course/${courseId}/lecture/${lectureId}`,
           formData,
-          { withCredentials: true }
+          {
+            withCredentials: true,
+          }
         );
         navigate(-1);
+        toast.success(respons.data.message);
       };
-      upadeLectureCourseApi();
+      await upadeLectureCourseApi();
     } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+      } else if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error("Something went wrong, please try again.");
+      }
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,9 +217,17 @@ const LectureUpdate = () => {
             </div>
             <button
               onClick={onClickHandlers}
-              className="mt-4 px-3 py-3.5 cursor-pointer hover:bg-blue-500 bg-black rounded shadow text-white capitalize font-semibold tracking-tight leading-none"
+              className="mt-4 px-3 flex items-center justify-center py-3.5 cursor-pointer hover:bg-blue-500 bg-black rounded shadow text-white capitalize font-semibold tracking-tight leading-none"
+              disabled={loading}
             >
-              update lecture
+              {loading ? (
+                <div className="flex items-center gap-3 flex-row-reverse">
+                  <div className="w-5 h-5 border-b-3 rounded-full  animate-spin"></div>
+                  <h1>update lecture</h1>
+                </div>
+              ) : (
+                "update  lecture"
+              )}
             </button>
           </div>
         </div>
