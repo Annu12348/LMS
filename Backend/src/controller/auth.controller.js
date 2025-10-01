@@ -182,30 +182,29 @@ export const updateUser = async (req, res) => {
 };
 
 export const me = async (req, res) => {
-  const token = req.cookies.token
-  
+  const token = req.cookies.token;
 
-    if(!token){
-      return res.status(401).json({
-        message: "unauthorized token"
-      })
-    }
+  if (!token) {
+    return res.status(401).json({
+      message: "unauthorized token",
+    });
+  }
 
   try {
-    
-
     const decoded = jwt.verify(token, process.env.JWT_SCRETE_KEY);
-    
 
     res.status(200).json({
       message: "me routes",
-      id: decoded.id
-    })
+      id: decoded.id,
+    });
   } catch (error) {
-    if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError") {
+    if (
+      error.name === "TokenExpiredError" ||
+      error.name === "JsonWebTokenError"
+    ) {
       return res.status(401).json({ message: "unauthorized token" });
     }
-   // console.error(error);
+    // console.error(error);
     res.status(500).json({
       message: "Internal server error. Please try again later.",
     });
